@@ -1,6 +1,7 @@
 $(document).ready(function () {
     let lat;
     let lon;
+    let restaurantList;
 
     navigator.geolocation.getCurrentPosition(function (response) {
         lat = response.coords.latitude;
@@ -16,10 +17,10 @@ $(document).ready(function () {
             "Accept": "application/json",
             "user-key": "6baeb6d20512d445d4dd41fd5a72c19a"
         }
-    })
-        .then(function (response) {
-            console.log(response)
-        });
+    }).then(function (response) {
+        console.log(response);
+        restaurantList = response.restaurants.map(restaurant=>{console.log(restaurant.restaurant.name)});
+    });
 
 })
 

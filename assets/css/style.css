@@ -27,6 +27,4 @@ aside{
 footer{
     background-color: orangered;
     grid-column: 1 / span 2;
-    /* align-content: center;
-    align-items: center; */
 }
