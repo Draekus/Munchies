@@ -10,19 +10,16 @@ $(document).ready(function () {
         console.log(`lat:${lat}, lon:${lon}`);
     })
 
+    const testURL = `https://developers.zomato.com/api/v2.1/search?lat=${lat}&lon=${lon}`;
+    const baseURL = "https://developers.zomato.com/api/v2.1/search?";
+    const keyword = "q=" + "searchbox value" + "&";
+    const radius = "radius=" + "value of search radius" + "&";
+    const location = "lat=" + lat + "&" + "lon=" + lon + "&";
+    const sort = "sort=" + "sort box choice" + "&";
+    const sortOrder = "order=" + "order box choice";
 
     $.ajax({
-        url: `https://developers.zomato.com/api/v2.1/search?lat=${lat}&lon=${lon}`,
-
-  const baseURL = "https://developers.zomato.com/api/v2.1/search?";
-  const keyword = "q=" + "searchbox value" + "&";
-  const radius = "radius=" + "value of search radius" + "&";
-  const location = "lat=" + lat + "&" + "lon=" + lon + "&";
-  const sort = "sort=" + "sort box choice" + "&";
-  const sortOrder = "order=" + "order box choice";  
-  
-  $.ajax({
-        url: "",
+        url: testURL,
         method: "GET",
         headers: {
             "Accept": "application/json",
@@ -30,11 +27,11 @@ $(document).ready(function () {
         }
     }).then(function (response) {
         //console.log(response);
-        response.restaurants.map(restaurant=>{console.log(restaurant.restaurant.name)});
+        response.restaurants.map(restaurant => { console.log(restaurant.restaurant.name) });
 
     });
 
-})
+});
 
 
 
