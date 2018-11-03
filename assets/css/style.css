@@ -1,5 +1,5 @@
 
-    body{
+body{
     display: grid;
     grid-template-columns: 1fr 20%;
     grid-template-rows: 1fr 70vh 50px;
@@ -32,12 +32,23 @@ main{
 color: white;
 }
 
+.modal{
+    position: absolute;
+    top: 30%;
+    right: 100px;
+    bottom: 0;
+    left: 0;
+    z-index: 10040;
+    overflow: auto;
+    overflow-y: auto;
+}
+
 aside{
     padding: 15px;
     font-size: 20px;
-background: beige;
-text-align: center;
-font-family: 'McLaren', cursive;
+    background: beige;
+    text-align: center;
+    font-family: 'McLaren', cursive;
 }
 footer{
     background: #232323;

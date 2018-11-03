@@ -6,6 +6,7 @@ const submitSearchBtn = $(`#submit-search-button`)
 let searchRadiusInput;
 
 $(document).ready(function () {
+    $(`#landing-modal`).modal('show');
     let lat;
     let lon;
     let restaurantList = [];
@@ -95,4 +96,5 @@ $(document).ready(function () {
 
     munchies.getLocation();
     console.log(lat, lon);
+    munchies.initMap();
 });
