@@ -1,4 +1,11 @@
 
+    body{
+    display: grid;
+    grid-template-columns: 1fr 20%;
+    grid-template-rows: 1fr 70vh 50px;
+    grid-gap: 1em;
+    max-width: 99%;
+    padding: 1em 0;
     opacity: 1;
     box-sizing: border-box;
     justify-content: stretch;
@@ -21,12 +28,24 @@ main{
     overflow-x: hidden;
 }
 
+.searcharea{
+color: white;
+}
+
 aside{
-background-color: azure;
+    padding: 15px;
+    font-size: 20px;
+background: beige;
+text-align: center;
+font-family: 'McLaren', cursive;
 }
 footer{
-    background-color: #232323;
+    background: #232323;
     grid-column: 1 / span 2;
+    color: bisque;
+    font-family: 'McLaren', cursive;
+    text-align: center;
+    padding-top: 13px;
 }
 .logo{
     font-family: 'McLaren', cursive;
@@ -43,4 +62,3 @@ footer{
     max-width: 100px;
     margin-bottom: 0;
 }
-
