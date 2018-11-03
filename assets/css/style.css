@@ -62,3 +62,9 @@ footer{
     max-width: 100px;
     margin-bottom: 0;
 }
+
+
+ #map {
+     height: 200px;  
+     width: 100%;  
+}
