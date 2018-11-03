@@ -17,7 +17,7 @@ $(document).ready(function () {
     const sortOrder = "order=" + "order box choice";
 
 
-    let muchies = {
+    let munchies = {
         getLocation: function () {
             navigator.geolocation.getCurrentPosition(function (response) {
                 lat = response.coords.latitude;
@@ -25,6 +25,28 @@ $(document).ready(function () {
 
                 console.log(`lat:${lat}, lon:${lon}`);
             })
+        },
+
+        makeCard: function () {
+            
+            let cardWrapper = $("<div>");
+            let cardBody = $("<div>");
+            let cardTitle = $("<h5>");
+            let cardSubtitle = $("<h6>");
+            let cardText = $("<p>");
+            let cardButton = $("<a>");
+
+            cardWrapper.addClass("card").attr("style", "width: 18rem;");
+            cardBody.addClass("card-body");
+            cardTitle.addClass("card-title");
+            cardSubtitle.addClass("card-subtitle mb-2 text-muted");
+            cardText.addClass("card-text")
+            cardButton.addClass("btn btn-primary").attr("href", "#")
+
+            cardBody.append(cardTitle, cardSubtitle, cardText, cardButton)
+            cardWrapper.append(cardBody)
+            cardWrapper.append($("#cardwrapper"))
+
         },
 
         getData: function () {
@@ -54,8 +76,10 @@ $(document).ready(function () {
     //console.log(restaurantList);
     $(`button`).click(function (event) {
         event.preventDefault();
-        muchies.getData();
+        munchies.getData();
+        // munchies.makeCard();
         //console.log(restaurantList);
+
     })
 });
 
