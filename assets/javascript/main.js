@@ -31,7 +31,8 @@ $(document).ready(function () {
                 $(`button`).click(function (event) {
                     event.preventDefault();
                     munchies.getData();
-                    munchies.makeCard();
+                    // munchies.makeCard();
+                    
                     //console.log(restaurantList);
                 })
             })
@@ -56,13 +57,16 @@ $(document).ready(function () {
 
             cardTitle.text(restaurantList[i].name)
             cardSubtitle.text(restaurantList[i].rating)
+            cardButton.text("Website")
             cardButton.attr("href", restaurantList[i].url)
 
             cardBody.append(cardTitle, cardSubtitle, cardText, cardButton)
             cardWrapper.append(cardBody)
             
-
+            console.log("hekko")
             $("#cardWrapper").append(cardWrapper)
+            $("#cardWrapper").append($("<p>"))
+            
         }
 
         },
@@ -91,7 +95,7 @@ $(document).ready(function () {
                 }
                 //restaurantList = response.restaurants.map(restaurant => { restaurant.restaurant.name });
                 console.log(restaurantList);
-
+                munchies.makeCard();
             });
         },
 

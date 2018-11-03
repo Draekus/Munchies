@@ -68,3 +68,7 @@ footer{
      height: 200px;  
      width: 100%;  
 }
+
+#cardWrapper {
+    margin-left: 400px;
+}
