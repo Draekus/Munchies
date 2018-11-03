@@ -10,6 +10,10 @@ $(document).ready(function () {
         console.log(`lat:${lat}, lon:${lon}`);
     })
 
+
+    $.ajax({
+        url: `https://developers.zomato.com/api/v2.1/search?lat=${lat}&lon=${lon}`,
+
   const baseURL = "https://developers.zomato.com/api/v2.1/search?";
   const keyword = "q=" + "searchbox value" + "&";
   const radius = "radius=" + "value of search radius" + "&";
@@ -31,5 +35,7 @@ $(document).ready(function () {
     });
 
 })
+
+
 
 
