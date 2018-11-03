@@ -36,6 +36,28 @@ $(document).ready(function () {
             })
         },
 
+        makeCard: function () {
+            
+            let cardWrapper = $("<div>");
+            let cardBody = $("<div>");
+            let cardTitle = $("<h5>");
+            let cardSubtitle = $("<h6>");
+            let cardText = $("<p>");
+            let cardButton = $("<a>");
+
+            cardWrapper.addClass("card").attr("style", "width: 18rem;");
+            cardBody.addClass("card-body");
+            cardTitle.addClass("card-title");
+            cardSubtitle.addClass("card-subtitle mb-2 text-muted");
+            cardText.addClass("card-text")
+            cardButton.addClass("btn btn-primary").attr("href", "#")
+
+            cardBody.append(cardTitle, cardSubtitle, cardText, cardButton)
+            cardWrapper.append(cardBody)
+            cardWrapper.append($("#cardwrapper"))
+
+        },
+
         getData: function () {
             testURL = `https://developers.zomato.com/api/v2.1/search?lat=${lat}&lon=${lon}`;
             $.ajax({
@@ -73,9 +95,17 @@ $(document).ready(function () {
     // }, 2000); 
 
     //console.log(restaurantList);
-    
+
 });
 
-
+function initMap() {
+    // The location of Uluru
+    var uluru = {lat: 43.080752, lng: -70.80219389999999};
+    // The map, centered at Uluru
+    var map = new google.maps.Map(
+        document.getElementById('map'), {zoom: 4, center: uluru});
+    // The marker, positioned at Uluru
+    var marker = new google.maps.Marker({position: uluru, map: map});
+  }
 
 
