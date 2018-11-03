@@ -7,7 +7,16 @@ $(document).ready(function(){
          console.log(lat,lon);
     })
 })
- $.ajax({
+
+const baseURL = "https://developers.zomato.com/api/v2.1/search?";
+const keyword = "q=" + "searchbox value" + "&";
+const radius = "radius=" + "value of search radius" + "&";
+const location = "lat=" + lat + "&" + "lon=" + lon + "&";
+const sort = "sort=" + "sort box choice" + "&";
+const sortOrder = "order=" + "order box choice";
+
+$.ajax({
+   
     url: "https://developers.zomato.com/api/v2.1/search?entity_id=7555&entity_type=city",
     method: "GET",
     headers:{
