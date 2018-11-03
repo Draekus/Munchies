@@ -28,8 +28,9 @@
 
     <main>
       <form>
-        <input class="searcharea" type="text" style="font-size: 60px; height: 80px; width: 600px;" value="Type here to search!">
+        <input class="searcharea" type="text" style="font-size: 60px; height: 80px; width: 600px;" placeholder="Type here to search!">
         <br>
+       
       </form>
 
     </main>
@@ -37,76 +38,17 @@
     <aside>
       Favorite items to store them here for <br>
       faster searching
+      <span>Choose a category: </span> <select id="categorySelect">
+        <option value="21">Sports</option>
+        <option value="17">Science</option>
+        <option value="12">Music</option>
+    </select>
     </aside>
 
     <footer>
       A Wasted Potential Design
     </footer>
 
-    <style>
-      .dropbtn {
-          background-color: #3498DB;
-          color: white;
-          padding: 16px;
-          font-size: 16px;
-          border: none;
-          cursor: pointer;
-      }
-      
-      .dropbtn:hover, .dropbtn:focus {
-          background-color: #2980B9;
-      }
-      
-      .dropdown {
-          position: relative;
-          display: inline-block;
-      }
-      
-      .dropdown-content {
-          display: none;
-          position: absolute;
-          background-color: #f1f1f1;
-          min-width: 160px;
-          overflow: auto;
-          box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-          z-index: 1;
-      }
-      
-      .dropdown-content a {
-          color: black;
-          padding: 12px 16px;
-          text-decoration: none;
-          display: block;
-      }
-      
-      .dropdown a:hover {background-color: #ddd;}
-      
-      .show {display: block;}
-      </style>
-
-<script>
-  /* When the user clicks on the button, 
-  toggle between hiding and showing the dropdown content */
-  function myFunction() {
-      document.getElementById("myDropdown").classList.toggle("show");
-  }
-  
-  // Close the dropdown if the user clicks outside of it
-  window.onclick = function(event) {
-    event.preventDefault();
-    if (!event.target.matches('.dropbtn')) {
-  
-      var dropdowns = document.getElementsByClassName("dropdown-content");
-      var i;
-      for (i = 0; i < dropdowns.length; i++) {
-        var openDropdown = dropdowns[i];
-        if (openDropdown.classList.contains('show')) {
-          openDropdown.classList.remove('show');
-        }
-      }
-    }
-  }
-  </script>
   
 
   </body>
