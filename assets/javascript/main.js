@@ -31,13 +31,15 @@ $(document).ready(function () {
                 $(`button`).click(function (event) {
                     event.preventDefault();
                     munchies.getData();
+                    munchies.makeCard();
                     //console.log(restaurantList);
                 })
             })
         },
 
         makeCard: function () {
-            
+           
+        for (let i = 0; i < restaurantList.length; i++ ){
             let cardWrapper = $("<div>");
             let cardBody = $("<div>");
             let cardTitle = $("<h5>");
@@ -52,9 +54,16 @@ $(document).ready(function () {
             cardText.addClass("card-text")
             cardButton.addClass("btn btn-primary").attr("href", "#")
 
+            cardTitle.text(restaurantList[i].name)
+            cardSubtitle.text(restaurantList[i].rating)
+            cardButton.attr("href", restaurantList[i].url)
+
             cardBody.append(cardTitle, cardSubtitle, cardText, cardButton)
             cardWrapper.append(cardBody)
-            cardWrapper.append($("#cardwrapper"))
+            
+
+            $("#cardWrapper").append(cardWrapper)
+        }
 
         },
 
