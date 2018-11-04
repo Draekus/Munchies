@@ -80,6 +80,10 @@ footer{
      width: 100%;  
 }
 
-#cardWrapper {
-    margin-left: 400px;
+#card-wrapper {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-gap: 1rem;
+    justify-items: center;
+    align-items: center;
 }

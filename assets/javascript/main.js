@@ -2,7 +2,8 @@
 //
 
 const searchInput = $(`#search-input`);
-const submitSearchBtn = $(`#submit-search-button`)
+const submitSearchBtn = $(`#submit-search-button`);
+const cardWrapperDiv = $(`#card-wrapper`);
 let searchRadiusInput;
 
 $(document).ready(function () {
@@ -38,7 +39,7 @@ $(document).ready(function () {
         },
 
         makeCard: function () {
-
+            cardWrapperDiv.html(``);
             for (let i = 0; i < restaurantList.length; i++) {
                 let newCard = $(`<div class="card" style="width:18rem">`);
                 newCard.html(`
@@ -49,7 +50,7 @@ $(document).ready(function () {
                     <a class="btn btn-primary" href="${restaurantList[i].url}">Website</a>
                 </div>
                 `);
-                $("#cardWrapper").append(newCard);
+                cardWrapperDiv.append(newCard);
             }
 
         },
