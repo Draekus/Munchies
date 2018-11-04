@@ -93,3 +93,6 @@ footer{
     grid-template-columns: 1fr 1fr;
     align-items: center;
 }
+.card-detail{
+    font-size: 10px;
+}
