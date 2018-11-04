@@ -1,24 +1,30 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Munchie Metropolis</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://fonts.googleapis.com/css?family=McLaren" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-    crossorigin="anonymous"></script>
-  <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Munchie Metropolis</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=McLaren"
+      rel="stylesheet">
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script
+      src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+      integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+      crossorigin="anonymous"></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+      integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+      crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" media="screen"
+      href="assets/css/style.css" />
 
-<body>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
 
   <body>
     <header>
@@ -32,14 +38,12 @@
 
     <main>
       <form>
-        <input class="searcharea" type="text" style="font-size: 60px; height: 80px; width: 600px;" placeholder="Type here to search!">
+        <input class="searcharea" type="text" style="font-size: 60px; height:
+          80px; width: 600px;" placeholder="Type here to search!">
         <br>
-
         <button id="submit-search-button">submit</button>
-
       </form>
-      <div id="card-wrapper">
-
+      <div id="card-wrapper">S
       </div>
     </main>
 
@@ -54,20 +58,22 @@
     </footer>
 
     <div id="landing-modal" class="modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Welcome to Munchies Metropolis!</h5>
-                </div>
-                <div class="modal-body">
-                    <p>Please enable location services by clicking accept!</p>
-                    <button id="submit-player-button" class="btn btn-outline-dark" data-dismiss="modal">Dismiss</button>
-                </div>
-            </div>
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Welcome to Munchies Metropolis!</h5>
+          </div>
+          <div class="modal-body">
+            <p>Please enable location services by clicking accept!</p>
+            <button id="submit-player-button" class="btn btn-outline-dark"
+              data-dismiss="modal">Dismiss</button>
+          </div>
         </div>
+      </div>
     </div>
 
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvB3UDvHwcSgPW6OCsJxf46fnHwAZNk2E&callback=initMap">
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvB3UDvHwcSgPW6OCsJxf46fnHwAZNk2E&callback=initMap">
     </script>
     <script src="assets/javascript/main.js"></script>
   </body>
