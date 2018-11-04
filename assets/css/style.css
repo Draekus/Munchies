@@ -93,7 +93,9 @@ footer{
     grid-template-columns: 1fr 1fr;
     align-items: center;
 }
-
+.card-detail{
+    font-size: 10px;
+}
 ::-webkit-scrollbar{
     width: 10px;
 }
@@ -109,3 +111,5 @@ footer{
 ::-webkit-scrollbar-thumb:hover{
     background-color: #6dcdb1;
 }
+
+
