@@ -49,7 +49,7 @@ $(document).ready(function () {
                     <div class="card-details">
                         <h6 class="card-subtitle mb-2 text-muted">Rating: ${restaurantList[i].rating}</h6>
                         <p class="card-text">Sample Text</p>
-                        <a class="btn btn-primary card-detail" data-val="${i}">More Details</a>
+                        <a class="btn btn-primary card-detail" data-val="${i}">Details</a>
                     </div>
                 </div>
                 `);
