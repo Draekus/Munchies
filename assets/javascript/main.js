@@ -12,6 +12,7 @@ $(document).ready(function () {
     let lon;
     let restaurantList = [];
     let testURL;
+    let modalID;
     const baseURL = `https://developers.zomato.com/api/v2.1/search?`;
     const keyword = `q=${searchInput.val()}&`;
     const radius = `radius=${searchRadiusInput}&`;
@@ -41,13 +42,15 @@ $(document).ready(function () {
         makeCard: function () {
             cardWrapperDiv.html(``);
             for (let i = 0; i < restaurantList.length; i++) {
-                let newCard = $(`<div class="card" style="width:18rem">`);
+                let newCard = $(`<div class="card">`);
                 newCard.html(`
                 <div class="card-body text-center">
                     <h5 class="card-title">${restaurantList[i].name}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Rating: ${restaurantList[i].rating}</h6>
-                    <p class="card-text">Sample Text</p>
-                    <a class="btn btn-primary" href="${restaurantList[i].url}">Website</a>
+                    <div class="card-details">
+                        <h6 class="card-subtitle mb-2 text-muted">Rating: ${restaurantList[i].rating}</h6>
+                        <p class="card-text">Sample Text</p>
+                        <a class="btn btn-primary card-detail" data-val="${i}">More Details</a>
+                    </div>
                 </div>
                 `);
                 cardWrapperDiv.append(newCard);
@@ -91,6 +94,27 @@ $(document).ready(function () {
                 document.getElementById('map'), { zoom: 4, center: uluru });
             // The marker, positioned at Uluru
             var marker = new google.maps.Marker({ position: uluru, map: map });
+        },
+
+        makeModal: function (id) {
+            console.log(`making modal`);
+            let newModal = $(`<div id="detail-modal-${id}" class="modal" tabindex="-1" role="dialog">`);
+            newModal.html(`
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Title ${id}</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p>Lorem Ipsum and shit</p>
+                        <button class="btn btn-outline-dark" data-dismiss="modal">Dismiss</button>
+                    </div>
+                </div>
+            </div>
+            `);
+
+            $(`body`).append(newModal);
+
         }
 
     }
@@ -98,4 +122,13 @@ $(document).ready(function () {
     munchies.getLocation();
     console.log(lat, lon);
     munchies.initMap();
+
+    $(document).on("click", ".card-detail", function (event) {
+        console.log(event.target.dataset.val);
+        modalID = event.target.dataset.val;
+        munchies.makeModal(modalID);
+        $(`#detail-modal-${modalID}`).modal(`show`);
+    });
+
 });
+

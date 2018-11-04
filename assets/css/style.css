@@ -82,8 +82,21 @@ footer{
 
 #card-wrapper {
     display: grid;
-    grid-template-columns: repeat(3,1fr);
+    grid-template-columns: repeat(auto-fill,minmax(15rem,1fr));
     grid-gap: 1rem;
     justify-items: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.card{
+    background-color: rgba(255,255,255,.5);
+    min-width: 10rem;
+    padding: 20px;
+}
+
+.card-body{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     align-items: center;
 }
