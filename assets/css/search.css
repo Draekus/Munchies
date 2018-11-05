@@ -33,18 +33,19 @@
   
   .s006 form .inner-form .input-field {
     height: 70px;
-    width: 100%;
+    max-width:100%;
     position: relative;
+    margin-left: 30px;
   }
   
   .s006 form .inner-form .input-field input {
     height: 100%;
-    width: 80%;
+    max-width: 80%;
     background: transparent;
     border: 0;
     background: #fff;
     display: block;
-    padding: 10px 32px 10px 70px;
+    padding: 10px 32px 10px 60px;
     font-size: 18px;
     color: #666;
     border-radius: 34px;
@@ -71,7 +72,7 @@
   }
   
   .s006 form .inner-form .input-field .btn-search {
-    /* width: 70px;
+    width: 70px;
     display: -ms-flexbox;
     display: flex;
     -ms-flex-align: center;
@@ -86,7 +87,7 @@
     -ms-flex-pack: center;
         justify-content: center;
     align-items: center;
-    cursor: pointer; */
+    cursor: context-menu;
   }
   
   .s006 form .inner-form .input-field .btn-search svg {

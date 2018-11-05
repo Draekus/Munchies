@@ -19,6 +19,13 @@ $(document).ready(function () {
     const location = `lat=${lat}&lon=${lon}`;
     const sort = `sort=" + "sort box choice" + "&`;
     const sortOrder = "order=" + "order box choice";
+    
+    //when press enter on input box clickes the button
+    $('#search').keypress(function(e){
+        event.preventDefault();
+        if(e.keyCode==13)
+        $('#submit-search-button').click();
+      });
 
     let munchies = {
         getLocation: function () {
