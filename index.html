@@ -21,8 +21,9 @@
       integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
       crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" media="screen"
+      href="assets/css/search.css" />
+    <link rel="stylesheet" type="text/css" media="screen"
       href="assets/css/style.css" />
-
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
 
@@ -37,13 +38,29 @@
     </header>
 
     <main>
-      <form>
-        <input class="searcharea" type="text" style="font-size: 60px; height:
-          80px; width: 600px;" placeholder="Type here to search!">
-        <br>
-        <button id="submit-search-button">submit</button>
-      </form>
-      <div id="card-wrapper">S
+      <div class="s006">
+        <form>
+          <fieldset>
+            <legend>What are you looking for?</legend>
+            <div class="inner-form">
+              <div class="input-field">
+                <input id="search" class="searcharea" type="text" placeholder=""
+                  value="Ladies" />
+                  <button class="btn-search"  id="submit-search-button"
+                  type="button">Search </button>
+              </div>
+            </div>
+            <div class="suggestion-wrap">
+              <span>New Arrivals</span>
+              <span>Ladies</span>
+              <span>Mens</span>
+              <span>Accessories</span>
+              <span>Sale</span>
+            </div>
+          </fieldset>
+          <div id="card-wrapper">S
+          </div>
+        </form>
       </div>
     </main>
 
