@@ -21,10 +21,12 @@ $(document).ready(function () {
     const sortOrder = "order=" + "order box choice";
     
     //when press enter on input box clickes the button
-    $('#search').keypress(function(e){
+    $('#search').keypress(function(event){
         event.preventDefault();
-        if(e.keyCode==13)
-        $('#submit-search-button').click();
+        if(event.keyCode==13){
+            $('#submit-search-button').click();
+        }
+        
       });
 
     let munchies = {

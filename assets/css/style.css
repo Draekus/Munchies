@@ -12,15 +12,39 @@ body{
     align-content: center;
 }
 header{
-    background-color: cornflowerblue;
+    font-family: 'McLaren', cursive;
+    color: white;
+    /* margin-top: 30px; */
+    /* margin-right: 80%; */
+    text-align: center;
     grid-column: 1 / 3;
-     min-height: 20em; 
-     background: url(../images/main-image.jpg) no-repeat center center fixed; 
-     background-size: cover;
-     height: 100%;
-     overflow-x: hidden;
-
+    min-height: 15em;
+    background: url(../images/main-image.jpg) no-repeat center center fixed;
+    background-size: cover;
+    height: 100%;
+    /* overflow-x: hidden; */
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
 }
+
+.logo{
+    align-items: end;
+    max-width: 50px;
+    max-height: 50px;
+    align-self: center;
+}
+
+.logo-image{
+    max-height: 80px;
+    max-width: 80px;
+    margin-bottom: 0;
+}
+
+.header-text {
+    grid-column-end: -1;
+    align-self: center;
+}
+
 main{
     background: url(../images/main-image.jpg) no-repeat center center fixed; 
     background-size: cover;
@@ -56,22 +80,12 @@ footer{
     text-align: center;
     padding-top: 13px;
 }
-.logo{
-    font-family: 'McLaren', cursive;
-    color: white;
-    margin-top: 30px;
-    margin-right: 80%;
-    text-align: center;
-}
-.logo h4 {
+
+/* .logo h4 {
     margin: 0;
-}
-.logo-image{
-    max-height: 80px;
-    max-width: 80px;
-    margin-bottom: 0;
-}
- #map {
+} */
+
+#map {
      height: 200px;  
      width: 100%;  
 }
