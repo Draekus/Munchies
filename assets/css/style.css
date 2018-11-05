@@ -96,6 +96,10 @@ footer{
 .card-detail{
     font-size: 10px;
 }
+.modal{
+opacity: 0.95;
+}
+/* scroll bar */
 ::-webkit-scrollbar{
     width: 10px;
 }
