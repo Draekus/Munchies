@@ -3,9 +3,9 @@ body{
     display: grid;
     grid-template-columns: 1fr 20%;
     grid-template-rows: 1fr 70vh 50px;
-    grid-gap: 1em;
-    max-width: 99%;
-    padding: 1em 0;
+    /* grid-gap: .4em; */
+    max-width: 99.8%;
+    /* padding: 1em 0; */
     opacity: 1;
     box-sizing: border-box;
     justify-content: stretch;
@@ -40,7 +40,7 @@ color: white;
     overflow: auto;
     overflow-y: auto;
 }
-aside{
+aside {
     padding: 15px;
     font-size: 20px;
     background: beige;
@@ -48,6 +48,7 @@ aside{
     font-family: 'McLaren', cursive;
 }
 footer{
+    margin-top: 3px;
     background: #232323;
     grid-column: 1 / span 2;
     color: bisque;
