@@ -109,6 +109,7 @@ footer{
 }
 .card{
     background-color: rgba(255,255,255,.5);
+    box-shadow: -10px 10px 5px rgba(100, 100, 100, 0.6);
     min-width: 10rem;
     padding: 20px;
     border-radius: 10%
@@ -143,7 +144,7 @@ opacity: 0.95;
 
 @media screen and (max-width:995px){
     body{
-        grid-template-rows: 1fr 1fr 1fr 50px;
+        grid-template-rows: auto auto 1fr 50px;
         grid-template-areas: "header header"
                              "aside aside"
                              "main main"
@@ -154,6 +155,10 @@ opacity: 0.95;
         /* grid-column: 1/-1; */
         grid-area: aside;
     }
+
+    /* header{
+        max-height: 10em;
+    } */
 
 
     .header-text{
