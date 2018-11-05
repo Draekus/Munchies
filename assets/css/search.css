@@ -1,0 +1,140 @@
+.s006 {
+    min-height: 300px;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: center;
+        justify-content: center;
+    -ms-flex-align: center;
+        align-items: center;
+    font-family: 'Poppins', sans-serif;
+
+    background-size: cover;
+    background-position: center center;
+    padding: 15px;
+  }
+  
+  .s006 form {
+    width: 100%;
+    max-width: 790px;
+  }
+  
+  .s006 form legend {
+    font-size: 36px;
+    color: #fff;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .s006 form .inner-form {
+    width: 100%;
+    margin-bottom: 17px;
+  }
+  
+  .s006 form .inner-form .input-field {
+    height: 70px;
+    width: 100%;
+    position: relative;
+  }
+  
+  .s006 form .inner-form .input-field input {
+    height: 100%;
+    width: 80%;
+    background: transparent;
+    border: 0;
+    background: #fff;
+    display: block;
+    padding: 10px 32px 10px 70px;
+    font-size: 18px;
+    color: #666;
+    border-radius: 34px;
+  }
+  
+  .s006 form .inner-form .input-field input.placeholder {
+    color: #ccc;
+    font-size: 18px;
+  }
+  
+  .s006 form .inner-form .input-field input:-moz-placeholder {
+    color: #ccc;
+    font-size: 18px;
+  }
+  
+  .s006 form .inner-form .input-field input::-webkit-input-placeholder {
+    color: #ccc;
+    font-size: 18px;
+  }
+  
+  .s006 form .inner-form .input-field input:hover, .s006 form .inner-form .input-field input:focus {
+    box-shadow: none;
+    outline: 0;
+  }
+  
+  .s006 form .inner-form .input-field .btn-search {
+    /* width: 70px;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+        align-items: center;
+    position: absolute;
+    left: 0;
+    height: 100%;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    display: flex;
+    -ms-flex-pack: center;
+        justify-content: center;
+    align-items: center;
+    cursor: pointer; */
+  }
+  
+  .s006 form .inner-form .input-field .btn-search svg {
+    fill: #ccc;
+    width: 30px;
+    height: 30px;
+    transition: all .2s ease-out, color .2s ease-out;
+  }
+  
+  .s006 form .inner-form .input-field .btn-search:hover, .s006 form .inner-form .input-field .btn-search:focus {
+    outline: 0;
+    box-shadow: none;
+  }
+  
+  .s006 form .inner-form .input-field .btn-search:hover svg, .s006 form .inner-form .input-field .btn-search:focus svg {
+    fill: #666;
+  }
+  
+  .s006 form .suggestion-wrap {
+    padding: 0 ;
+    margin-top: 5px
+  }
+  
+  .s006 form .suggestion-wrap span {
+    font-size: 14px;
+    font-family: 'Helvetica', sans-serif;
+    display: inline-block;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 0 15px;
+    line-height: 32px;
+    color: #fff;
+    border-radius: 16px;
+    margin:15px 10px 5px 40px;
+  }
+  
+  @media screen and (max-width: 767px) {
+    .s006 form .inner-form .input-field {
+      margin-bottom: 20px;
+      height: 50px;
+    }
+    .s006 form .inner-form .input-field input {
+      padding-left: 55px;
+      font-size: 16px;
+    }
+    .s006 form .inner-form .input-field .btn-search svg {
+      width: 26px;
+      height: 26px;
+    }
+  }
+  
+  

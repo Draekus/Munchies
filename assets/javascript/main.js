@@ -20,7 +20,6 @@ $(document).ready(function () {
     const sort = `sort=" + "sort box choice" + "&`;
     const sortOrder = "order=" + "order box choice";
 
-
     let munchies = {
         getLocation: function () {
             console.log(`getting location...`);
@@ -57,7 +56,6 @@ $(document).ready(function () {
             }
 
         },
-
         //take user geolocation and retreive nearby restaurants
         getData: function () {
             testURL = `https://developers.zomato.com/api/v2.1/search?lat=${lat}&lon=${lon}`;
@@ -116,9 +114,7 @@ $(document).ready(function () {
             $(`body`).append(newModal);
 
         }
-
     }
-
     munchies.getLocation();
     console.log(lat, lon);
     munchies.initMap();
