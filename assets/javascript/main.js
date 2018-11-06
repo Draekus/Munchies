@@ -117,7 +117,7 @@ $(document).ready(function () {
                     <h5 class="card-title">${restaurantList[i].name}</h5>
                     <div class="card-details">
                         <h6 class="card-subtitle mb-2 text-muted">Rating: ${restaurantList[i].rating}</h6>
-                        <p class="card-text">Price For Two: $${restaurantList[i].price}</p>
+                        <p class="card-text">${restaurantList[i].locale}</p>
                         <a class="btn btn-primary card-detail" data-val="${i}">Details</a>
                     </div>
                 </div>
@@ -147,8 +147,11 @@ $(document).ready(function () {
                         menu: response.restaurants[i].restaurant.menu_url,
                         rating: response.restaurants[i].restaurant.user_rating.aggregate_rating,
                         price: response.restaurants[i].restaurant.average_cost_for_two,
+                        latitude: response.restaurants[i].restaurant.location.latitude,
+                        longitude: response.restaurants[i].restaurant.location.longitude,
                         address: response.restaurants[i].restaurant.location.address,
                         city: response.restaurants[i].restaurant.location.city,
+                        locale: response.restaurants[i].restaurant.location.locality_verbose,
                         menu: response.restaurants[i].restaurant.menu_url
                     }
                     restaurantList.push(newRestaurant);
@@ -195,6 +198,7 @@ $(document).ready(function () {
                     <div class="modal-body">
                         <p><b>Address: </b>${restaurantList[i].address}</p>
                         <p><b>City: </b>${restaurantList[i].city}</p>
+                        <p><b>Average Price For Two: </b>$${restaurantList[i].price}</p>
                         <p><b>Menu: </b><a href='${restaurantList[i].menu}'>Click Here</a></p>
                         <button class="btn btn-outline-dark" data-dismiss="modal">Dismiss</button>
                     </div>
