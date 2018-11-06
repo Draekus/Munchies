@@ -151,7 +151,7 @@ $(document).ready(function () {
                         longitude: response.restaurants[i].restaurant.location.longitude,
                         address: response.restaurants[i].restaurant.location.address,
                         city: response.restaurants[i].restaurant.location.city,
-                        locale: response.restaurants[i].restaurant.location.locality_verbose,
+                        locale: response.restaurants[i].restaurant.location.locality,
                         menu: response.restaurants[i].restaurant.menu_url
                     }
                     restaurantList.push(newRestaurant);
