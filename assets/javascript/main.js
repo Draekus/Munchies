@@ -117,7 +117,7 @@ $(document).ready(function () {
                     <h5 class="card-title">${restaurantList[i].name}</h5>
                     <div class="card-details">
                         <h6 class="card-subtitle mb-2 text-muted">Rating: ${restaurantList[i].rating}</h6>
-                        <p class="card-text">Sample Text</p>
+                        <p class="card-text">Price For Two: $${restaurantList[i].price}</p>
                         <a class="btn btn-primary card-detail" data-val="${i}">Details</a>
                     </div>
                 </div>
@@ -145,7 +145,8 @@ $(document).ready(function () {
                         id: response.restaurants[i].restaurant.id,
                         url: response.restaurants[i].restaurant.url,
                         menu: response.restaurants[i].restaurant.menu_url,
-                        rating: response.restaurants[i].restaurant.user_rating.aggregate_rating
+                        rating: response.restaurants[i].restaurant.user_rating.aggregate_rating,
+                        price: response.restaurants[i].restaurant.average_cost_for_two
                     }
                     restaurantList.push(newRestaurant);
                 }
