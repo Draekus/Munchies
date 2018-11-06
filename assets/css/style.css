@@ -80,6 +80,11 @@ aside {
     font-family: 'McLaren', cursive;
     grid-area: aside;
 }
+
+.hide{
+    display: none;
+}
+
 footer{
     margin-top: 3px;
     background: #232323;

@@ -1,6 +1,13 @@
-const database = firebase.database();
-const users = database.ref(`/users/`);
-const connectedRef = database.ref(`.info/connected`);
+//define global variables
+//
+
+const database = firebase.database(); // assign firebase database service
+const auth = firebase.auth(); // assign firebase authentication service
+let email; //where email input will be stored
+let password; //where password input will be stored
+
+
+const connectedRef = database.ref(`.info/connected`); //firebase connection listener
 
 //define jQuery Selectors
 //
@@ -8,11 +15,48 @@ const connectedRef = database.ref(`.info/connected`);
 const searchInput = $(`#search-input`);
 const submitSearchBtn = $(`#submit-search-button`);
 const cardWrapperDiv = $(`#card-wrapper`);
+const emailInput = $(`#user-email-input`);
+const passwordInput = $(`#user-password-input`);
+const loginButton = $(`#user-login-button`);
+const signUpButton = $(`#user-create-button`);
+const logoutButton = $(`#user-logout-button`);
 let searchRadiusInput;
 
 //
 $(document).ready(function () {
     $(`#landing-modal`).modal('show');
+
+    loginButton.click(function(){ //attempt login on button click
+        email = emailInput.val()
+        password = passwordInput.val()
+        console.log([email,password]);
+        //call out to authentication service, assign it's promise to varaible to catch any errors
+        const promise = auth.signInWithEmailAndPassword(email,password);
+        promise.catch(error=>{console.log(error.message)});
+    });
+
+    signUpButton.click(function(){
+        email = emailInput.val()
+        password = passwordInput.val()
+        console.log([email,password]);
+        //call out to authentication service, assign it's promise to varaible to catch any errors
+        const promise = auth.createUserWithEmailAndPassword(email,password);
+        promise.catch(error=>{console.log(error.message)});
+    });
+
+    logoutButton.click(function(){
+        auth.signOut();
+    })
+
+    auth.onAuthStateChanged(function(firebaseUser) {
+        if(firebaseUser){
+            console.log(firebaseUser);
+            logoutButton.removeClass(`hide`);
+        } else{
+            console.log(`not loggin in`);
+            logoutButton.addClass(`hide`);
+        }
+    })
 
     connectedRef.on("value",function(snapshot){
         console.log(snapshot);
