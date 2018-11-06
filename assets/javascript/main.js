@@ -1,3 +1,7 @@
+const database = firebase.database();
+const users = database.ref(`/users/`);
+const connectedRef = database.ref(`.info/connected`);
+
 //define jQuery Selectors
 //
 
@@ -6,8 +10,14 @@ const submitSearchBtn = $(`#submit-search-button`);
 const cardWrapperDiv = $(`#card-wrapper`);
 let searchRadiusInput;
 
+//
 $(document).ready(function () {
     $(`#landing-modal`).modal('show');
+
+    connectedRef.on("value",function(snapshot){
+        console.log(snapshot);
+    })
+
     let lat;
     let lon;
     let restaurantList = [];

@@ -73,13 +73,20 @@
         </div>
         <div class="modal-body">
           <p>Please enable location services by clicking accept!</p>
-          <button id="submit-player-button" class="btn btn-outline-dark" data-dismiss="modal">Dismiss</button>
+          <!-- <button id="submit-player-button" class="btn btn-outline-dark" data-dismiss="modal">Dismiss</button> -->
+          <input id="user-email-input" type="text" placeholder="email">
+          <input id="user-email-password" type="text" placeholder="password">
+          <button id="user-login-button" class="btn btn-outline-dark">Log In</button>
+          <button id="user-create-button" class="btn btn-outline-dark">Sign Up</button>
         </div>
       </div>
     </div>
   </div>
 
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvB3UDvHwcSgPW6OCsJxf46fnHwAZNk2E&callback=initMap">
+
+  <script src="https://www.gstatic.com/firebasejs/5.5.7/firebase.js"></script>
+  <script src="assets/javascript/fire-config.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvB3UDvHwcSgPW6OCsJxf46fnHwAZNk2E&callback=initMap">
   </script>
   <script src="assets/javascript/main.js"></script>
 </body>
