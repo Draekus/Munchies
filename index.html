@@ -56,6 +56,7 @@
   </main>
 
   <aside class="shadow">
+    <button id="user-logout-button" class="btn btn-outline-dark hide">Logout</button>
     Favorite items to store them here for <br>
     faster searching
     <div id="map"></div>
@@ -70,16 +71,25 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Welcome to Munchies Metropolis!</h5>
+          <h6>Please enable location services by clicking accept above</h6>
         </div>
         <div class="modal-body">
-          <p>Please enable location services by clicking accept!</p>
+          <p>Sign in or create an account below so you can save favorites and get email updates! We're totally cool and wont sell your information</p>
+          <p>Dont feel like joining? Hit dismiss to continue as a guest!</p>
+          <input id="user-email-input" type="text" placeholder="email">
+          <input id="user-password-input" type="text" placeholder="password">
+          <button id="user-login-button" class="btn btn-outline-dark">Log In</button>
+          <button id="user-create-button" class="btn btn-outline-dark">Sign Up</button>
           <button id="submit-player-button" class="btn btn-outline-dark" data-dismiss="modal">Dismiss</button>
         </div>
       </div>
     </div>
   </div>
 
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvB3UDvHwcSgPW6OCsJxf46fnHwAZNk2E&callback=initMap">
+
+  <script src="https://www.gstatic.com/firebasejs/5.5.7/firebase.js"></script>
+  <script src="assets/javascript/fire-config.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvB3UDvHwcSgPW6OCsJxf46fnHwAZNk2E&callback=initMap">
   </script>
   <script src="assets/javascript/main.js"></script>
 </body>

@@ -1,12 +1,11 @@
 
 body{
     background: rgb(209, 209, 209);
-    /* background: linear-gradient(36deg, rgba(132,152,137,1) 7%, rgba(189,255,196,1) 93%); */
+    /* background: linear-gradient(45deg, rgba(132,152,137,1) 7%, rgba(189,255,196,1) 93%); */
     display: grid;
     grid-template-columns: 1fr 20%;
     grid-template-rows: 1fr 70vh 50px;
     grid-gap: 1em;
-    /* margin: auto .4em auto 4em; */
     max-width: 99.8%;
     padding: 1em;
     opacity: 1;
@@ -20,16 +19,12 @@ body{
 header{
     font-family: 'McLaren', cursive;
     color: white;
-    /* margin-top: 30px; */
-    /* margin-right: 80%; */
     text-align: center;
-    /* grid-column: 1 / 3; */
     grid-area: header;
     min-height: 15em;
     background: url(../images/main-image.jpg) no-repeat center center fixed;
     background-size: cover;
     height: 100%;
-    /* overflow-x: hidden; */
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 100px 100px; 
@@ -73,6 +68,10 @@ color: white;
     overflow: auto;
     overflow-y: auto;
 }
+::placeholder{
+    color:black;
+}
+
 aside {
     padding: 15px;
     font-size: 20px;
@@ -81,6 +80,11 @@ aside {
     font-family: 'McLaren', cursive;
     grid-area: aside;
 }
+
+.hide{
+    display: none;
+}
+
 footer{
     margin-top: 3px;
     background: #232323;
