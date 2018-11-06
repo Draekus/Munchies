@@ -5,8 +5,15 @@ const database = firebase.database(); // assign firebase database service
 const auth = firebase.auth(); // assign firebase authentication service
 let email; //where email input will be stored
 let password; //where password input will be stored
+//from rapid-api
+//var RapidAPI = new require('rapidapi-connect');
+//var rapid = new RapidAPI('munchie_5be10c36e4b02e44153feed4', '/connect/auth/munchie_5be10c36e4b02e44153feed4');
 
+//spoonacular apikey?
+// OM0SKTzddtmshPA3nc61vNOIEfaVp1VLQLijsn5aYbYl0C1MFg
 
+//Database References
+//
 const connectedRef = database.ref(`.info/connected`); //firebase connection listener
 
 //define jQuery Selectors
@@ -147,6 +154,20 @@ $(document).ready(function () {
             });
         },
 
+        getSpoonacular: function(){
+            let testSpoonURL = `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?&query=burger`;
+            $.ajax({
+                url:testSpoonURL,
+                method:"GET",
+                headers:{
+                    "Accept":"application/json",
+                    "X-Mashape-Key": "OM0SKTzddtmshPA3nc61vNOIEfaVp1VLQLijsn5aYbYl0C1MFg"
+                }
+            }).then(function(response){
+                console.log(response);
+            })
+        },
+
         initMap: function () {
             // The location of Uluru
             var uluru = { lat: 43.080752, lng: -70.80219389999999 };
@@ -178,6 +199,7 @@ $(document).ready(function () {
 
         }
     }
+    munchies.getSpoonacular();
     munchies.getLocation();
     console.log(lat, lon);
     munchies.initMap();
