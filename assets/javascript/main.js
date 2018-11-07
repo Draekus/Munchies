@@ -22,7 +22,7 @@ const connectedRef = database.ref(`.info/connected`); //firebase connection list
 //define jQuery Selectors
 //
 
-const searchInput = $(`#search-input`);
+
 const submitSearchBtn = $(`#submit-search-button`);
 const searchForm = $(`#search-form`);
 const cardWrapperDiv = $(`#card-wrapper`);
@@ -80,7 +80,13 @@ $(document).ready(function () {
     let modalID;
     let location;
     const baseURL = `https://developers.zomato.com/api/v2.1/search?`;
-    const keyword = `q=${searchInput.val()}&`;
+    const keyword = `q=${searchInput}&`;
+    const sort = `sort=${sortInput}&`;
+    const order = `order=${orderInput}&`
+    const sortInput = $("#sortInput").val();
+const orderInput = $("#orderInput").val();
+const radiusInput = $("#radiusInput").val();
+const searchInput = $("#searchInput").val();
     const radius = `radius=${searchRadiusInput}&`;
     // const location = `lat=${lat}&lon=${lon}`;
     const sort = `sort=" + "sort box choice" + "&`;
@@ -143,19 +149,40 @@ $(document).ready(function () {
             // testURL = `https://developers.zomato.com/api/v2.1/search?lat=${lat}&lon=${lon}`;
             let url = baseURL;
             console.log(`search input: ${searchInput.val()}`)
-            if (searchInput.val() !== "") {
-                url += keyword;
+            if (searchInput.val() === "" && sortInput === "Sort" && orderInput === "Order" && radiusInput === "Radius") {
+                url = `${url}${location}`;
                 console.log(url);
-            } else if (searchInput.val() === "") {
-                url += location;
-                console.log(url);
+            }
+            else if(searchInput.val() !== "" && sortInput === "Sort" && orderInput === "Order" && radiusInput === "Radius") {
+                url = `${url}${location}${keyword}`;
+            }
+            else if (searchInput.val() !== "" && sortInput === "Sort" && orderInput === "Order" && radiusInput !== "Radius"){
+                url = `${url}${location}${keyword}${radius}`
+            }
+            else if (searchInput.val() === "" && sortInput !== "Sort" && orderInput === "Order" && radiusInput === "Radius" ){
+                url = `${url}${location}${sort}`;
+            } 
+            else if (searchInput.val() === "" && sortInput !== "Sort" && orderInput !== "Order" && radiusInput === "Radius"){ 
+                url = `${url}${location}${sort}${order}`
+            }
+            else if (searchInput.val() === "" && sortInput === "Sort" && orderInput === "Order" && radiusInput !== "Radius"){
+                url = `${url}${location}${radius}`
+            }
+            else if (searchInput.val() !== "" && sortInput !== "Sort" && orderInput === "Order" && radiusInput === "Radius"){
+                url = `${url}${location}${keyword}${sort}`
+            }
+            else if (searchInput.val() !== "" && sortInput !== "Sort" && orderInput !== "Order" && radiusInput === "Radius"){
+                url = `${url}${location}${keyword}${sort}${order}`
+            }
+            else if (searchInput.val() !== "" && sortInput !== "Sort" && orderInput !== "Order" && radiusInput !== "Radius"){
+                url = `${url}${location}${keyword}${sort}${order}${radius}`
             }
             $.ajax({
                 url: url,
                 method: "GET",
                 headers: {
                     "Accept": "application/json",
-                    "user-key": "5ff9c123fbdfa616e2505b4be96d0128"
+                    "user-key": "6baeb6d20512d445d4dd41fd5a72c19a"
                 }
             }).then(function (response) {
                 console.log(response);
@@ -198,17 +225,10 @@ $(document).ready(function () {
 
         initMap: function () {
             // The location of Uluru
+            var uluru = { lat: 43.080752, lng: -70.80219389999999 };
             // The map, centered at Uluru
-            for (let i = 0; i < restaurantList.length; i++) {
-            var latNumber = parseFloat(restaurantList[i].latitude)
-            var logNumber = parseFloat(restaurantList[i].longitude)
-            var uluru = { lat: latNumber, lng: logNumber };
-            
             var map = new google.maps.Map(
-             document.getElementById('map' + i) , { zoom: 14, center: uluru });
-            
-            }  
-            
+                document.getElementById('map'), { zoom: 4, center: uluru });
             // The marker, positioned at Uluru
             var marker = new google.maps.Marker({ position: uluru, map: map });
         },
@@ -216,10 +236,8 @@ $(document).ready(function () {
         makeModal: function (id) {
             console.log(`making modal`);
             for (let i = 0; i < restaurantList.length; i++) {
-
-            let newModal = $(`<div id="detail-modal-${i}" class="modal" tabindex="-1" role="dialog">`);
-            newModal.html(`
-
+                let newModal = $(`<div id="detail-modal-${id}" class="modal" tabindex="-1" role="dialog">`);
+                newModal.html(`
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -228,9 +246,8 @@ $(document).ready(function () {
                     <div class="modal-body">
                         <p><b>Address: </b>${restaurantList[i].address}</p>
                         <p><b>City: </b>${restaurantList[i].city}</p>
-                        <p><b>Average Price For Two: </b>$${restaurantList[id].price}</p>
+                        <p><b>Average Price For Two: </b>$${restaurantList[i].price}</p>
                         <p><b>Menu: </b><a href='${restaurantList[i].menu}'>Click Here</a></p>
-                        <div  class="map" id='map${i}'></div>
                         <button class="btn btn-outline-dark" data-dismiss="modal">Dismiss</button>
                     </div>
                 </div>
@@ -239,13 +256,11 @@ $(document).ready(function () {
 
                 $(`body`).append(newModal);
             }
-            munchies.initMap();
         }
     }
     munchies.getSpoonacular();
     munchies.getLocation();
     console.log(lat, lon);
-
 
     munchies.initMap();
     searchForm.on("submit", function (event) {
@@ -259,10 +274,8 @@ $(document).ready(function () {
     $(document).on("click", ".card-detail", function (event) {
         console.log(event.target.dataset.val);
         modalID = event.target.dataset.val;
-     
         munchies.makeModal(modalID);
         $(`#detail-modal-${modalID}`).modal(`show`);
-        munchies.initMap();
     });
     console.log($("#sortBox").val())
 });
