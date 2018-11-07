@@ -33,39 +33,39 @@ let searchRadiusInput;
 $(document).ready(function () {
     $(`#landing-modal`).modal('show');
 
-    loginButton.click(function(){ //attempt login on button click
+    loginButton.click(function () { //attempt login on button click
         email = emailInput.val()
         password = passwordInput.val()
-        console.log([email,password]);
+        console.log([email, password]);
         //call out to authentication service, assign it's promise to varaible to catch any errors
-        const promise = auth.signInWithEmailAndPassword(email,password);
-        promise.catch(error=>{console.log(error.message)});
+        const promise = auth.signInWithEmailAndPassword(email, password);
+        promise.catch(error => { console.log(error.message) });
     });
 
-    signUpButton.click(function(){
+    signUpButton.click(function () {
         email = emailInput.val()
         password = passwordInput.val()
-        console.log([email,password]);
+        console.log([email, password]);
         //call out to authentication service, assign it's promise to varaible to catch any errors
-        const promise = auth.createUserWithEmailAndPassword(email,password);
-        promise.catch(error=>{console.log(error.message)});
+        const promise = auth.createUserWithEmailAndPassword(email, password);
+        promise.catch(error => { console.log(error.message) });
     });
 
-    logoutButton.click(function(){
+    logoutButton.click(function () {
         auth.signOut();
     })
 
-    auth.onAuthStateChanged(function(firebaseUser) {
-        if(firebaseUser){
+    auth.onAuthStateChanged(function (firebaseUser) {
+        if (firebaseUser) {
             console.log(firebaseUser);
             logoutButton.removeClass(`hide`);
-        } else{
+        } else {
             console.log(`not loggin in`);
             logoutButton.addClass(`hide`);
         }
     })
 
-    connectedRef.on("value",function(snapshot){
+    connectedRef.on("value", function (snapshot) {
         console.log(snapshot);
     })
 
@@ -80,15 +80,15 @@ $(document).ready(function () {
     const location = `lat=${lat}&lon=${lon}`;
     const sort = `sort=" + "sort box choice" + "&`;
     const sortOrder = "order=" + "order box choice";
-    
+
     //when press enter on input box clickes the button
-    $('#search').keypress(function(event){
+    $('#search').keypress(function (event) {
         event.preventDefault();
-        if(event.keyCode==13){
+        if (event.keyCode == 13) {
             $('#submit-search-button').click();
         }
-        
-      });
+
+    });
 
     let munchies = {
         getLocation: function () {
@@ -161,16 +161,16 @@ $(document).ready(function () {
             });
         },
 
-        getSpoonacular: function(){
+        getSpoonacular: function () {
             let testSpoonURL = `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?&query=burger`;
             $.ajax({
-                url:testSpoonURL,
-                method:"GET",
-                headers:{
-                    "Accept":"application/json",
+                url: testSpoonURL,
+                method: "GET",
+                headers: {
+                    "Accept": "application/json",
                     "X-Mashape-Key": "OM0SKTzddtmshPA3nc61vNOIEfaVp1VLQLijsn5aYbYl0C1MFg"
                 }
-            }).then(function(response){
+            }).then(function (response) {
                 console.log(response);
             })
         },
@@ -179,15 +179,15 @@ $(document).ready(function () {
             // The location of Uluru
             // The map, centered at Uluru
             for (let i = 0; i < restaurantList.length; i++) {
-            var latNumber = parseFloat(restaurantList[i].latitude)
-            var logNumber = parseFloat(restaurantList[i].longitude)
-            var uluru = { lat: latNumber, lng: logNumber };
-            
-            var map = new google.maps.Map(
-             document.getElementById('map' + i) , { zoom: 14, center: uluru });
-            
-            }  
-            
+                var latNumber = parseFloat(restaurantList[i].latitude)
+                var logNumber = parseFloat(restaurantList[i].longitude)
+                var uluru = { lat: latNumber, lng: logNumber };
+
+                var map = new google.maps.Map(
+                    document.getElementById('map' + i), { zoom: 15, center: uluru });
+
+            }
+
             // The marker, positioned at Uluru
             var marker = new google.maps.Marker({ position: uluru, map: map });
         },
@@ -195,26 +195,29 @@ $(document).ready(function () {
         makeModal: function (id) {
             console.log(`making modal`);
             for (let i = 0; i < restaurantList.length; i++) {
-            let newModal = $(`<div id="detail-modal-${i}" class="modal" tabindex="-1" role="dialog">`);
-            newModal.html(`
+                let newModal = $(`<div id="detail-modal-${i}" class="modal" tabindex="-1" role="dialog">`);
+                newModal.html(`
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">${restaurantList[i].name}</h5>
                     </div>
-                    <div class="modal-body">
+                    <div class="detail-modal-body modal-body">
+                        <div>
                         <p><b>Address: </b>${restaurantList[i].address}</p>
                         <p><b>City: </b>${restaurantList[i].city}</p>
                         <p><b>Average Price For Two: </b>$${restaurantList[id].price}</p>
                         <p><b>Menu: </b><a href='${restaurantList[i].menu}'>Click Here</a></p>
-                        <div  class="map" id='map${i}'></div>
                         <button class="btn btn-outline-dark" data-dismiss="modal">Dismiss</button>
+                        </div>
+                        <div class="map" id='map${i}' ></div>
                     </div>
+                   
                 </div>
             </div>
             `);
 
-            $(`body`).append(newModal);
+                $(`body`).append(newModal);
             }
             munchies.initMap();
         }
@@ -222,12 +225,12 @@ $(document).ready(function () {
     munchies.getSpoonacular();
     munchies.getLocation();
     console.log(lat, lon);
-   
+
 
     $(document).on("click", ".card-detail", function (event) {
         console.log(event.target.dataset.val);
         modalID = event.target.dataset.val;
-     
+
         munchies.makeModal(modalID);
         $(`#detail-modal-${modalID}`).modal(`show`);
         munchies.initMap();
