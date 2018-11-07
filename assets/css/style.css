@@ -68,12 +68,6 @@ color: white;
     overflow: auto;
     overflow-y: auto;
 }
-.detail-modal-body{
-display: flex;
-}
-.modal-title{
-    text-align: center;
-}
 ::placeholder{
     color:black;
 }
@@ -109,8 +103,7 @@ footer{
 
 .map {
      height: 200px;  
-     width: 250px;
-     margin: 10px;
+     width: 200px;  
 }
 #card-wrapper {
     display: grid;
@@ -134,7 +127,7 @@ footer{
     font-size: 10px;
 }
 .modal{
-opacity: 0.95
+opacity: 0.95;
 }
 
 .favorited-button{
