@@ -1,5 +1,8 @@
 //define global variables
 //
+$(document).ready(function(){
+    $('select').formSelect();
+  });
 
 const database = firebase.database(); // assign firebase database service
 const auth = firebase.auth(); // assign firebase authentication service
@@ -221,6 +224,9 @@ $(document).ready(function () {
         munchies.makeModal(modalID);
         $(`#detail-modal-${modalID}`).modal(`show`);
     });
-
+    console.log($("#sortBox").val())
 });
+
+
+
 
