@@ -1,5 +1,8 @@
 //define global variables
 //
+$(document).ready(function(){
+    $('select').formSelect();
+  });
 
 const database = firebase.database(); // assign firebase database service
 const auth = firebase.auth(); // assign firebase authentication service
@@ -21,6 +24,7 @@ const connectedRef = database.ref(`.info/connected`); //firebase connection list
 
 const searchInput = $(`#search-input`);
 const submitSearchBtn = $(`#submit-search-button`);
+const searchForm = $(`#search-form`);
 const cardWrapperDiv = $(`#card-wrapper`);
 const emailInput = $(`#user-email-input`);
 const passwordInput = $(`#user-password-input`);
@@ -53,13 +57,30 @@ $(document).ready(function () {
 
     logoutButton.click(function () {
         auth.signOut();
-    })
+    });
 
     auth.onAuthStateChanged(function (firebaseUser) {
         if (firebaseUser) {
             console.log(firebaseUser);
             logoutButton.removeClass(`hide`);
         } else {
+          
+    $(document).on("click", ".favorite-button", function (){
+        if($(this).attr("class")!=="favorited-button"){
+        $(this).addClass("favorited-button")
+        
+        console.log("clickedfosho") 
+        }
+            $(document).on("click", ".favorited-button", function (){
+        
+        $(this).removeClass("favorited-button")
+    
+    console.log("clickedforeal") 
+});
+
+    });
+
+        } else{
             console.log(`not loggin in`);
             logoutButton.addClass(`hide`);
         }
@@ -74,21 +95,23 @@ $(document).ready(function () {
     let restaurantList = [];
     let testURL;
     let modalID;
+    let location;
     const baseURL = `https://developers.zomato.com/api/v2.1/search?`;
     const keyword = `q=${searchInput.val()}&`;
     const radius = `radius=${searchRadiusInput}&`;
-    const location = `lat=${lat}&lon=${lon}`;
+    // const location = `lat=${lat}&lon=${lon}`;
     const sort = `sort=" + "sort box choice" + "&`;
     const sortOrder = "order=" + "order box choice";
 
     //when press enter on input box clickes the button
-    $('#search').keypress(function (event) {
-        event.preventDefault();
-        if (event.keyCode == 13) {
-            $('#submit-search-button').click();
-        }
 
-    });
+    // $('#search').keypress(function(event){
+    //     event.preventDefault();
+    //     if(event.keyCode==13){
+    //         $('#submit-search-button').click();
+    //     }
+
+    //   });
 
     let munchies = {
         getLocation: function () {
@@ -97,14 +120,21 @@ $(document).ready(function () {
 
                 lat = response.coords.latitude;
                 lon = response.coords.longitude;
+                location = `lat=${lat}&lon=${lon}`
 
                 console.log(`lat:${lat}, lon:${lon}`);
 
                 //let user submit search with location now defined
-                submitSearchBtn.click(function (event) {
-                    event.preventDefault();
-                    munchies.getData();
-                })
+                // submitSearchBtn.click(function (event) {
+                //     event.preventDefault();
+                //     munchies.getData();
+                // });
+                // searchForm.on("submit",function(event){
+                //     event.preventDefault();
+                //     munchies.getData();
+                //     $('input').val("");
+                // });
+
             })
         },
 
@@ -128,9 +158,18 @@ $(document).ready(function () {
         },
         //take user geolocation and retreive nearby restaurants
         getData: function () {
-            testURL = `https://developers.zomato.com/api/v2.1/search?lat=${lat}&lon=${lon}`;
+            // testURL = `https://developers.zomato.com/api/v2.1/search?lat=${lat}&lon=${lon}`;
+            let url = baseURL;
+            console.log(`search input: ${searchInput.val()}`)
+            if (searchInput.val() !== "") {
+                url += keyword;
+                console.log(url);
+            } else if (searchInput.val() === "") {
+                url += location;
+                console.log(url);
+            }
             $.ajax({
-                url: testURL,
+                url: url,
                 method: "GET",
                 headers: {
                     "Accept": "application/json",
@@ -195,15 +234,19 @@ $(document).ready(function () {
         makeModal: function (id) {
             console.log(`making modal`);
             for (let i = 0; i < restaurantList.length; i++) {
-                let newModal = $(`<div id="detail-modal-${i}" class="modal" tabindex="-1" role="dialog">`);
-                newModal.html(`
+
+            let newModal = $(`<div id="detail-modal-${i}" class="modal" tabindex="-1" role="dialog">`);
+            newModal.html(`
+
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">${restaurantList[i].name}</h5>
                     </div>
+
                     <div class="detail-modal-body modal-body">
                         <div>
+
                         <p><b>Address: </b>${restaurantList[i].address}</p>
                         <p><b>City: </b>${restaurantList[i].city}</p>
                         <p><b>Average Price For Two: </b>$${restaurantList[id].price}</p>
@@ -227,6 +270,15 @@ $(document).ready(function () {
     console.log(lat, lon);
 
 
+    munchies.initMap();
+    searchForm.on("submit", function (event) {
+        event.preventDefault();
+        munchies.getData();
+        $('input').val("");
+    });
+
+
+
     $(document).on("click", ".card-detail", function (event) {
         console.log(event.target.dataset.val);
         modalID = event.target.dataset.val;
@@ -235,6 +287,9 @@ $(document).ready(function () {
         $(`#detail-modal-${modalID}`).modal(`show`);
         munchies.initMap();
     });
-
+    console.log($("#sortBox").val())
 });
+
+
+
 

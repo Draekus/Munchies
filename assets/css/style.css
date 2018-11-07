@@ -136,6 +136,11 @@ footer{
 .modal{
 opacity: 0.95
 }
+
+.favorited-button{
+    color: yellow;
+}
+
 /* scroll bar */
 ::-webkit-scrollbar{
     width: 10px;
@@ -151,6 +156,32 @@ opacity: 0.95
 }
 ::-webkit-scrollbar-thumb:hover{
     background-color: #6dcdb1;
+}
+
+#sortBox {
+    margin: 50px;
+    width: 150px;
+    background-color: white;
+    float: left;
+}
+
+
+#radiusBox {
+    margin: 50px;
+    width: 150px;
+    background-color: white;
+    float: left;
+}
+
+#orderInput {
+    background-color: #009578;
+}
+
+#listBox {
+    margin: 50px;
+    width: 150px;
+    background-color: white;
+    float: left;
 }
 
 @media screen and (max-width:995px){
