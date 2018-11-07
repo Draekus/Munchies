@@ -23,6 +23,9 @@ const connectedRef = database.ref(`.info/connected`); //firebase connection list
 //
 
 const searchInput = $(`#search-input`);
+const sortSelect = $(`#sort-select`);
+const orderSelect = $(`#order-select`);
+const radiusSelect = $(`#radius-select`);
 const submitSearchBtn = $(`#submit-search-button`);
 const searchForm = $(`#search-form`);
 const cardWrapperDiv = $(`#card-wrapper`);
@@ -31,7 +34,7 @@ const passwordInput = $(`#user-password-input`);
 const loginButton = $(`#user-login-button`);
 const signUpButton = $(`#user-create-button`);
 const logoutButton = $(`#user-logout-button`);
-let searchRadiusInput;
+
 
 //
 $(document).ready(function () {
@@ -97,21 +100,31 @@ $(document).ready(function () {
     let testURL;
     let modalID;
     let location;
+    let keyword;
+    let radiusValue;
+    let sortValue;
+    let orderValue;
     const baseURL = `https://developers.zomato.com/api/v2.1/search?`;
-    const keyword = `q=${searchInput.val()}&`;
-    const radius = `radius=${searchRadiusInput}&`;
-    // const location = `lat=${lat}&lon=${lon}`;
-    const sort = `sort=" + "sort box choice" + "&`;
-    const sortOrder = "order=" + "order box choice";
 
-    //when press enter on input box clickes the button
-    // $('#search').keypress(function(event){
-    //     event.preventDefault();
-    //     if(event.keyCode==13){
-    //         $('#submit-search-button').click();
-    //     }
 
-    //   });
+    //Listen for changes to form inputs, assign values to variables
+    
+    searchInput.change(function(){
+        keyword = `q=${searchInput.val()}&`;
+    });
+
+    radiusSelect.change(function(){
+        radiusValue = `radius=${radiusSelect.val()}&`;
+    });
+
+    sortSelect.change(function(){
+        sortValue = `sort=${sortSelect.val()}&`;
+    });
+
+    orderSelect.change(function(){
+        orderValue = `order=${orderSelect.val()}&`;
+    });
+
 
     let munchies = {
         getLocation: function () {
@@ -120,20 +133,10 @@ $(document).ready(function () {
 
                 lat = response.coords.latitude;
                 lon = response.coords.longitude;
-                location = `lat=${lat}&lon=${lon}`
+                location = `lat=${lat}&lon=${lon}&`
 
                 console.log(`lat:${lat}, lon:${lon}`);
 
-                //let user submit search with location now defined
-                // submitSearchBtn.click(function (event) {
-                //     event.preventDefault();
-                //     munchies.getData();
-                // });
-                // searchForm.on("submit",function(event){
-                //     event.preventDefault();
-                //     munchies.getData();
-                //     $('input').val("");
-                // });
 
             })
         },
@@ -159,15 +162,56 @@ $(document).ready(function () {
         //take user geolocation and retreive nearby restaurants
         getData: function () {
             // testURL = `https://developers.zomato.com/api/v2.1/search?lat=${lat}&lon=${lon}`;
-            let url = baseURL;
-            console.log(`search input: ${searchInput.val()}`)
-            if (searchInput.val() !== "") {
-                url += keyword;
-                console.log(url);
-            } else if (searchInput.val() === "") {
-                url += location;
-                console.log(url);
+            //let url = baseURL;
+            let url;
+            console.log(keyword);
+            console.log(radiusValue);
+            console.log(sortValue);
+            console.log(orderValue);
+
+            if(keyword){ // check if search input has a value
+                console.log(`pushing keyword to url`)
+                url = `${baseURL}${keyword}`;
+                if(radiusValue){
+                    url += radiusValue;
+                }
+                if(sortValue){
+                    url += sortValue;
+                }
+                if(orderValue){
+                    url += orderValue;
+                }
+            } else{ //no value, default to location search
+                console.log(`default url`);
+                url = `${baseURL}${location}`;
+                if(radiusValue){
+                    url += radiusValue;
+                }
+                if(sortValue){
+                    url += sortValue;
+                }
+                if(orderValue){
+                    url += orderValue;
+                }
             }
+            //Note: switch was not working- look at again to try and implement?
+            // switch (keyword){
+            //     case undefined:
+            //         console.log(`search input is undefined`)
+            //         url = `${url}${location}`;
+            //         break;
+            //     case (!undefined):
+            //         console.log(`search input is not undefined`)
+            //         url = `${url}${keyword}`;
+            //         break;
+            //     // default:
+            //     // console.log(`defaulting`)
+            //     //     url = `${url}${location}`;
+            //     //     break;
+            // }
+
+            console.log(`url: ${url}`)
+            
             $.ajax({
                 url: url,
                 method: "GET",

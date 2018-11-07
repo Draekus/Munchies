@@ -34,7 +34,7 @@
   <main class="shadow">
     <div class="s006">
       <form id = "search-form">
-        <fieldset>
+        <fieldset> 
           <legend>What are you looking for?</legend>
           <div class="inner-form">
             <div class="input-field">
@@ -43,33 +43,32 @@
             </div>
           </div>
         </fieldset>
-        <div id="sortBox" class="form-group">
-            <label id="sortTitle">Sort By</label>
-            <select class="form-control" id="sortInput">
-              <option>Sort</option>
-              <option>Cost</option>
-              <option>Rating</option>
-              <option>Distance</option>
+        <div id="sort-box" class="form-group">
+            <label for="sort-select">Sort By</label>
+            <select class="form-control" id="sort-select">
+              <option disabled selected value>-</option>
+              <option value="cost">Cost</option>
+              <option value="rating">Rating</option>
+              <option value="real_distance">Distance</option>
             </select>
           </div>
         </fieldset>
-        <div id="listBox" class="form-group">
-            <label for="exampleFormControlSelect1">Order By</label>
-            <select class="form-control" id="orderInput">
-              <option>Order</option>
-              <option>Ascending</option>
-              <option>Decending</option>
+        <div id="list-box" class="form-group">
+            <label for="order-select">Order By</label>
+            <select class="form-control" id="order-select">
+              <option disabled selected value>-</option>
+              <option value="acs">Ascending</option>
+              <option value="desc">Decending</option>
             </select>
           </div>
         </fieldset>
-        <div id="radiusBox" class="form-group">
-            <label for="exampleFormControlSelect1">Radius</label>
-            <select class="form-control" id="radiusInput">
-              <option>Radius</option>
-              <option>100</option>
-              <option>250</option>
-              <option>500</option>
-              <option>1000</option>
+        <div id="radius-box" class="form-group">
+            <label for="radius-select">Radius</label>
+            <select class="form-control" id="radius-select">
+              <option disabled selected value>-</option>
+              <option value="8047">5 Mile</option>
+              <option value="16093">10 Miles</option>
+              <option value="402334">20 Miles</option>
             </select>
           </div>
     </div>
