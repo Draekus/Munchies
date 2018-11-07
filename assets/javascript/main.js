@@ -155,7 +155,7 @@ $(document).ready(function () {
                 method: "GET",
                 headers: {
                     "Accept": "application/json",
-                    "user-key": "6baeb6d20512d445d4dd41fd5a72c19a"
+                    "user-key": "5ff9c123fbdfa616e2505b4be96d0128"
                 }
             }).then(function (response) {
                 console.log(response);
@@ -198,10 +198,17 @@ $(document).ready(function () {
 
         initMap: function () {
             // The location of Uluru
-            var uluru = { lat: 43.080752, lng: -70.80219389999999 };
             // The map, centered at Uluru
+            for (let i = 0; i < restaurantList.length; i++) {
+            var latNumber = parseFloat(restaurantList[i].latitude)
+            var logNumber = parseFloat(restaurantList[i].longitude)
+            var uluru = { lat: latNumber, lng: logNumber };
+            
             var map = new google.maps.Map(
-                document.getElementById('map'), { zoom: 4, center: uluru });
+             document.getElementById('map' + i) , { zoom: 14, center: uluru });
+            
+            }  
+            
             // The marker, positioned at Uluru
             var marker = new google.maps.Marker({ position: uluru, map: map });
         },
@@ -209,8 +216,10 @@ $(document).ready(function () {
         makeModal: function (id) {
             console.log(`making modal`);
             for (let i = 0; i < restaurantList.length; i++) {
-                let newModal = $(`<div id="detail-modal-${id}" class="modal" tabindex="-1" role="dialog">`);
-                newModal.html(`
+
+            let newModal = $(`<div id="detail-modal-${i}" class="modal" tabindex="-1" role="dialog">`);
+            newModal.html(`
+
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -219,8 +228,9 @@ $(document).ready(function () {
                     <div class="modal-body">
                         <p><b>Address: </b>${restaurantList[i].address}</p>
                         <p><b>City: </b>${restaurantList[i].city}</p>
-                        <p><b>Average Price For Two: </b>$${restaurantList[i].price}</p>
+                        <p><b>Average Price For Two: </b>$${restaurantList[id].price}</p>
                         <p><b>Menu: </b><a href='${restaurantList[i].menu}'>Click Here</a></p>
+                        <div  class="map" id='map${i}'></div>
                         <button class="btn btn-outline-dark" data-dismiss="modal">Dismiss</button>
                     </div>
                 </div>
@@ -229,11 +239,13 @@ $(document).ready(function () {
 
                 $(`body`).append(newModal);
             }
+            munchies.initMap();
         }
     }
     munchies.getSpoonacular();
     munchies.getLocation();
     console.log(lat, lon);
+
 
     munchies.initMap();
     searchForm.on("submit", function (event) {
@@ -247,8 +259,10 @@ $(document).ready(function () {
     $(document).on("click", ".card-detail", function (event) {
         console.log(event.target.dataset.val);
         modalID = event.target.dataset.val;
+     
         munchies.makeModal(modalID);
         $(`#detail-modal-${modalID}`).modal(`show`);
+        munchies.initMap();
     });
     console.log($("#sortBox").val())
 });
