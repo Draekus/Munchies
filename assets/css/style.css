@@ -153,11 +153,16 @@ opacity: 0.95;
     float: left;
 }
 
+
 #radiusBox {
     margin: 50px;
     width: 150px;
     background-color: white;
     float: left;
+}
+
+#orderInput {
+    background-color: #009578;
 }
 
 #listBox {
