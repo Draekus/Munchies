@@ -284,17 +284,21 @@ $(document).ready(function () {
 
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="detail-modal-header modal-header">
                         <h5 class="modal-title">${restaurantList[i].name}</h5>
+                        <i class="far fa-star favorite-button"></i>
                     </div>
-                    <i class="far fa-star favorite-button"></i>
-                    <div class="modal-body">
+                    
+                    <div class="detail-modal-body">
+                    <div>
                         <p><b>Address: </b>${restaurantList[i].address}</p>
                         <p><b>City: </b>${restaurantList[i].city}</p>
                         <p><b>Average Price For Two: </b>$${restaurantList[id].price}</p>
                         <p><b>Menu: </b><a href='${restaurantList[i].menu}'>Click Here</a></p>
-                        <div  class="map" id='map${i}'></div>
                         <button class="btn btn-outline-dark" data-dismiss="modal">Dismiss</button>
+                    </div>
+                    <div  class="map" id='map${i}'></div>
+                        
                     </div>
                 </div>
             </div>
