@@ -72,6 +72,21 @@ color: white;
     color:black;
 }
 
+#search-form{
+    display: grid;
+    grid-template-columns: repeat(3,minmax(200px,1fr));
+    justify-content: center;
+    margin: auto;
+}
+
+.search{
+    grid-column: 1/-1;
+}
+
+.sort label{
+    color: white;
+}
+
 aside {
     padding: 15px;
     font-size: 20px;

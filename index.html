@@ -34,7 +34,7 @@
   <main class="shadow">
     <div class="s006">
       <form id = "search-form">
-        <fieldset> 
+        <fieldset class = "search"> 
           <legend>What are you looking for?</legend>
           <div class="inner-form">
             <div class="input-field">
@@ -43,6 +43,7 @@
             </div>
           </div>
         </fieldset>
+        <fieldset class="sort">
         <div id="sort-box" class="form-group">
             <label for="sort-select">Sort By</label>
             <select class="form-control" id="sort-select">
@@ -53,6 +54,7 @@
             </select>
           </div>
         </fieldset>
+        <fieldset class="sort">
         <div id="list-box" class="form-group">
             <label for="order-select">Order By</label>
             <select class="form-control" id="order-select">
@@ -62,7 +64,8 @@
             </select>
           </div>
         </fieldset>
-        <div id="radius-box" class="form-group">
+        <fieldset class="sort">
+          <div id="radius-box" class="form-group">
             <label for="radius-select">Radius</label>
             <select class="form-control" id="radius-select">
               <option disabled selected value>-</option>
@@ -71,6 +74,7 @@
               <option value="402334">20 Miles</option>
             </select>
           </div>
+        </fieldset>
     </div>
 
     <div id="card-wrapper">
