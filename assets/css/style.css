@@ -101,9 +101,9 @@ footer{
     border-radius: 5px;
 }
 
-#map {
+.map {
      height: 200px;  
-     width: 100%;  
+     width: 200px;  
 }
 #card-wrapper {
     display: grid;
