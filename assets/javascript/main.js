@@ -21,6 +21,7 @@ const connectedRef = database.ref(`.info/connected`); //firebase connection list
 
 const searchInput = $(`#search-input`);
 const submitSearchBtn = $(`#submit-search-button`);
+const searchForm = $(`#search-form`);
 const cardWrapperDiv = $(`#card-wrapper`);
 const emailInput = $(`#user-email-input`);
 const passwordInput = $(`#user-password-input`);
@@ -33,39 +34,39 @@ let searchRadiusInput;
 $(document).ready(function () {
     $(`#landing-modal`).modal('show');
 
-    loginButton.click(function(){ //attempt login on button click
+    loginButton.click(function () { //attempt login on button click
         email = emailInput.val()
         password = passwordInput.val()
-        console.log([email,password]);
+        console.log([email, password]);
         //call out to authentication service, assign it's promise to varaible to catch any errors
-        const promise = auth.signInWithEmailAndPassword(email,password);
-        promise.catch(error=>{console.log(error.message)});
+        const promise = auth.signInWithEmailAndPassword(email, password);
+        promise.catch(error => { console.log(error.message) });
     });
 
-    signUpButton.click(function(){
+    signUpButton.click(function () {
         email = emailInput.val()
         password = passwordInput.val()
-        console.log([email,password]);
+        console.log([email, password]);
         //call out to authentication service, assign it's promise to varaible to catch any errors
-        const promise = auth.createUserWithEmailAndPassword(email,password);
-        promise.catch(error=>{console.log(error.message)});
+        const promise = auth.createUserWithEmailAndPassword(email, password);
+        promise.catch(error => { console.log(error.message) });
     });
 
-    logoutButton.click(function(){
+    logoutButton.click(function () {
         auth.signOut();
-    })
+    });
 
-    auth.onAuthStateChanged(function(firebaseUser) {
-        if(firebaseUser){
+    auth.onAuthStateChanged(function (firebaseUser) {
+        if (firebaseUser) {
             console.log(firebaseUser);
             logoutButton.removeClass(`hide`);
-        } else{
+        } else {
             console.log(`not loggin in`);
             logoutButton.addClass(`hide`);
         }
     })
 
-    connectedRef.on("value",function(snapshot){
+    connectedRef.on("value", function (snapshot) {
         console.log(snapshot);
     })
 
@@ -80,15 +81,15 @@ $(document).ready(function () {
     const location = `lat=${lat}&lon=${lon}`;
     const sort = `sort=" + "sort box choice" + "&`;
     const sortOrder = "order=" + "order box choice";
-    
+
     //when press enter on input box clickes the button
-    $('#search').keypress(function(event){
-        event.preventDefault();
-        if(event.keyCode==13){
-            $('#submit-search-button').click();
-        }
-        
-      });
+    // $('#search').keypress(function(event){
+    //     event.preventDefault();
+    //     if(event.keyCode==13){
+    //         $('#submit-search-button').click();
+    //     }
+
+    //   });
 
     let munchies = {
         getLocation: function () {
@@ -101,10 +102,16 @@ $(document).ready(function () {
                 console.log(`lat:${lat}, lon:${lon}`);
 
                 //let user submit search with location now defined
-                submitSearchBtn.click(function (event) {
-                    event.preventDefault();
-                    munchies.getData();
-                })
+                // submitSearchBtn.click(function (event) {
+                //     event.preventDefault();
+                //     munchies.getData();
+                // });
+                // searchForm.on("submit",function(event){
+                //     event.preventDefault();
+                //     munchies.getData();
+                //     $('input').val("");
+                // });
+
             })
         },
 
@@ -130,10 +137,13 @@ $(document).ready(function () {
         getData: function () {
             // testURL = `https://developers.zomato.com/api/v2.1/search?lat=${lat}&lon=${lon}`;
             let url = baseURL;
-            if(searchInput.val() !== ""){
+            console.log(`search input: ${searchInput.val()}`)
+            if (searchInput.val() !== "") {
                 url += keyword;
-            } else if(searchInput === ""){
+                console.log(url);
+            } else if (searchInput === "") {
                 url += location;
+                console.log(url);
             }
             $.ajax({
                 url: url,
@@ -167,16 +177,16 @@ $(document).ready(function () {
             });
         },
 
-        getSpoonacular: function(){
+        getSpoonacular: function () {
             let testSpoonURL = `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?&query=burger`;
             $.ajax({
-                url:testSpoonURL,
-                method:"GET",
-                headers:{
-                    "Accept":"application/json",
+                url: testSpoonURL,
+                method: "GET",
+                headers: {
+                    "Accept": "application/json",
                     "X-Mashape-Key": "OM0SKTzddtmshPA3nc61vNOIEfaVp1VLQLijsn5aYbYl0C1MFg"
                 }
-            }).then(function(response){
+            }).then(function (response) {
                 console.log(response);
             })
         },
@@ -194,8 +204,8 @@ $(document).ready(function () {
         makeModal: function (id) {
             console.log(`making modal`);
             for (let i = 0; i < restaurantList.length; i++) {
-            let newModal = $(`<div id="detail-modal-${id}" class="modal" tabindex="-1" role="dialog">`);
-            newModal.html(`
+                let newModal = $(`<div id="detail-modal-${id}" class="modal" tabindex="-1" role="dialog">`);
+                newModal.html(`
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -212,14 +222,22 @@ $(document).ready(function () {
             </div>
             `);
 
-            $(`body`).append(newModal);
+                $(`body`).append(newModal);
             }
         }
     }
     munchies.getSpoonacular();
     munchies.getLocation();
     console.log(lat, lon);
+
     munchies.initMap();
+    searchForm.on("submit", function (event) {
+        event.preventDefault();
+        munchies.getData();
+        $('input').val("");
+    });
+
+
 
     $(document).on("click", ".card-detail", function (event) {
         console.log(event.target.dataset.val);
