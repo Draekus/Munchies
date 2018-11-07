@@ -146,6 +146,32 @@ opacity: 0.95;
     background-color: #6dcdb1;
 }
 
+#sortBox {
+    margin: 50px;
+    width: 150px;
+    background-color: white;
+    float: left;
+}
+
+
+#radiusBox {
+    margin: 50px;
+    width: 150px;
+    background-color: white;
+    float: left;
+}
+
+#orderInput {
+    background-color: #009578;
+}
+
+#listBox {
+    margin: 50px;
+    width: 150px;
+    background-color: white;
+    float: left;
+}
+
 @media screen and (max-width:995px){
     body{
         grid-template-rows: auto auto 1fr 50px;
