@@ -1,8 +1,8 @@
 //define global variables
 //
-$(document).ready(function(){
+$(document).ready(function () {
     $('select').formSelect();
-  });
+});
 
 const database = firebase.database(); // assign firebase database service
 const auth = firebase.auth(); // assign firebase authentication service
@@ -67,24 +67,27 @@ $(document).ready(function () {
             console.log(firebaseUser);
             logoutButton.removeClass(`hide`);
 
-            
-    $(document).on("click", ".favorite-button", function (){
-        if($(this).attr("class")!=="favorited-button"){
-        $(this).addClass("favorited-button")
-        
-        console.log("clickedfosho") 
-        }
-            $(document).on("click", ".favorited-button", function (){
-        
-        $(this).removeClass("favorited-button")
-    
-    console.log("clickedforeal") 
-});
 
-    });
+            $(document).on("click", ".favorite-button", function () {
+                let index = this.attr(dataset.index);
+                console.log(index);
+                // munchies.addFavorite()
+                if ($(this).attr("class") !== "favorited-button") {
+                    $(this).addClass("favorited-button")
+
+                    console.log("clickedfosho")
+                }
+                $(document).on("click", ".favorited-button", function () {
+
+                    $(this).removeClass("favorited-button")
+
+                    console.log("clickedforeal")
+                });
+
+            });
 
 
-        } else{
+        } else {
             console.log(`not loggin in`);
             logoutButton.addClass(`hide`);
         }
@@ -108,20 +111,20 @@ $(document).ready(function () {
 
 
     //Listen for changes to form inputs, assign values to variables
-    
-    searchInput.change(function(){
+
+    searchInput.change(function () {
         keyword = `q=${searchInput.val()}&`;
     });
 
-    radiusSelect.change(function(){
+    radiusSelect.change(function () {
         radiusValue = `radius=${radiusSelect.val()}&`;
     });
 
-    sortSelect.change(function(){
+    sortSelect.change(function () {
         sortValue = `sort=${sortSelect.val()}&`;
     });
 
-    orderSelect.change(function(){
+    orderSelect.change(function () {
         orderValue = `order=${orderSelect.val()}&`;
     });
 
@@ -169,28 +172,28 @@ $(document).ready(function () {
             console.log(sortValue);
             console.log(orderValue);
 
-            if(keyword){ // check if search input has a value
+            if (keyword) { // check if search input has a value
                 console.log(`pushing keyword to url`)
                 url = `${baseURL}${keyword}`;
-                if(radiusValue){
+                if (radiusValue) {
                     url += radiusValue;
                 }
-                if(sortValue){
+                if (sortValue) {
                     url += sortValue;
                 }
-                if(orderValue){
+                if (orderValue) {
                     url += orderValue;
                 }
-            } else{ //no value, default to location search
+            } else { //no value, default to location search
                 console.log(`default url`);
                 url = `${baseURL}${location}`;
-                if(radiusValue){
+                if (radiusValue) {
                     url += radiusValue;
                 }
-                if(sortValue){
+                if (sortValue) {
                     url += sortValue;
                 }
-                if(orderValue){
+                if (orderValue) {
                     url += orderValue;
                 }
             }
@@ -211,7 +214,7 @@ $(document).ready(function () {
             // }
 
             console.log(`url: ${url}`)
-            
+
             $.ajax({
                 url: url,
                 method: "GET",
@@ -262,15 +265,15 @@ $(document).ready(function () {
             // The location of Uluru
             // The map, centered at Uluru
             for (let i = 0; i < restaurantList.length; i++) {
-            var latNumber = parseFloat(restaurantList[i].latitude)
-            var logNumber = parseFloat(restaurantList[i].longitude)
-            var uluru = { lat: latNumber, lng: logNumber };
-            
-            var map = new google.maps.Map(
-             document.getElementById('map' + i) , { zoom: 14, center: uluru });
-            
-            }  
-            
+                var latNumber = parseFloat(restaurantList[i].latitude)
+                var logNumber = parseFloat(restaurantList[i].longitude)
+                var uluru = { lat: latNumber, lng: logNumber };
+
+                var map = new google.maps.Map(
+                    document.getElementById('map' + i), { zoom: 14, center: uluru });
+
+            }
+
             // The marker, positioned at Uluru
             var marker = new google.maps.Marker({ position: uluru, map: map });
         },
@@ -279,14 +282,14 @@ $(document).ready(function () {
             console.log(`making modal`);
             for (let i = 0; i < restaurantList.length; i++) {
 
-            let newModal = $(`<div id="detail-modal-${i}" class="modal" tabindex="-1" role="dialog">`);
-            newModal.html(`
+                let newModal = $(`<div id="detail-modal-${i}" class="modal" tabindex="-1" role="dialog">`);
+                newModal.html(`
 
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="detail-modal-header modal-header">
                         <h5 class="modal-title">${restaurantList[i].name}</h5>
-                        <i class="far fa-star favorite-button"></i>
+                        <i class="far fa-star favorite-button" data-index="${i}"></i>
                     </div>
                     
                     <div class="detail-modal-body">
@@ -307,6 +310,13 @@ $(document).ready(function () {
                 $(`body`).append(newModal);
             }
             munchies.initMap();
+        },
+
+        addFavorite: function (index) {
+            console.log(`adding favorite`);
+            console.log(`getting restaurant at index ${index}`);
+            let newFav = restaurantList[index];
+            console.log(newFav);
         }
     }
     munchies.getSpoonacular();
@@ -331,7 +341,7 @@ $(document).ready(function () {
     $(document).on("click", ".card-detail", function (event) {
         console.log(event.target.dataset.val);
         modalID = event.target.dataset.val;
-     
+
         munchies.makeModal(modalID);
         $(`#detail-modal-${modalID}`).modal(`show`);
         munchies.initMap();
