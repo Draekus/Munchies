@@ -128,9 +128,15 @@ $(document).ready(function () {
         },
         //take user geolocation and retreive nearby restaurants
         getData: function () {
-            testURL = `https://developers.zomato.com/api/v2.1/search?lat=${lat}&lon=${lon}`;
+            // testURL = `https://developers.zomato.com/api/v2.1/search?lat=${lat}&lon=${lon}`;
+            let url = baseURL;
+            if(searchInput.val() !== ""){
+                url += keyword;
+            } else if(searchInput === ""){
+                url += location;
+            }
             $.ajax({
-                url: testURL,
+                url: url,
                 method: "GET",
                 headers: {
                     "Accept": "application/json",
