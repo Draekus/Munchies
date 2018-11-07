@@ -130,6 +130,12 @@ footer{
 opacity: 0.95;
 }
 
+.detail-modal-body, .detail-modal-header{
+    display:flex;
+    justify-content: center;
+    align-content: center;
+}
+
 .favorited-button{
     color: yellow;
 }
