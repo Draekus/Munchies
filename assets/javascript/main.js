@@ -59,6 +59,24 @@ $(document).ready(function () {
         if(firebaseUser){
             console.log(firebaseUser);
             logoutButton.removeClass(`hide`);
+
+            
+    $(document).on("click", ".favorite-button", function (){
+        if($(this).attr("class")!=="favorited-button"){
+        $(this).addClass("favorited-button")
+        
+        console.log("clickedfosho") 
+        }
+            $(document).on("click", ".favorited-button", function (){
+        
+        $(this).removeClass("favorited-button")
+    
+    console.log("clickedforeal") 
+});
+
+    });
+
+
         } else{
             console.log(`not loggin in`);
             logoutButton.addClass(`hide`);
@@ -134,7 +152,7 @@ $(document).ready(function () {
                 method: "GET",
                 headers: {
                     "Accept": "application/json",
-                    "user-key": "6baeb6d20512d445d4dd41fd5a72c19a"
+                    "user-key": "5ff9c123fbdfa616e2505b4be96d0128"
                 }
             }).then(function (response) {
                 console.log(response);
@@ -195,6 +213,7 @@ $(document).ready(function () {
                     <div class="modal-header">
                         <h5 class="modal-title">${restaurantList[i].name}</h5>
                     </div>
+                    <i class="far fa-star favorite-button"></i>
                     <div class="modal-body">
                         <p><b>Address: </b>${restaurantList[i].address}</p>
                         <p><b>City: </b>${restaurantList[i].city}</p>
@@ -207,13 +226,23 @@ $(document).ready(function () {
             `);
 
             $(`body`).append(newModal);
+    
+    
             }
-        }
+            
+        },
+
+       
     }
     munchies.getSpoonacular();
     munchies.getLocation();
     console.log(lat, lon);
     munchies.initMap();
+
+
+
+
+
 
     $(document).on("click", ".card-detail", function (event) {
         console.log(event.target.dataset.val);

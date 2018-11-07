@@ -129,6 +129,11 @@ footer{
 .modal{
 opacity: 0.95;
 }
+
+.favorited-button{
+    color: yellow;
+}
+
 /* scroll bar */
 ::-webkit-scrollbar{
     width: 10px;
