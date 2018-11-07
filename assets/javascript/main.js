@@ -75,10 +75,11 @@ $(document).ready(function () {
     let restaurantList = [];
     let testURL;
     let modalID;
+    let location;
     const baseURL = `https://developers.zomato.com/api/v2.1/search?`;
     const keyword = `q=${searchInput.val()}&`;
     const radius = `radius=${searchRadiusInput}&`;
-    const location = `lat=${lat}&lon=${lon}`;
+    // const location = `lat=${lat}&lon=${lon}`;
     const sort = `sort=" + "sort box choice" + "&`;
     const sortOrder = "order=" + "order box choice";
 
@@ -98,6 +99,7 @@ $(document).ready(function () {
 
                 lat = response.coords.latitude;
                 lon = response.coords.longitude;
+                location = `lat=${lat}&lon=${lon}`
 
                 console.log(`lat:${lat}, lon:${lon}`);
 
@@ -141,7 +143,7 @@ $(document).ready(function () {
             if (searchInput.val() !== "") {
                 url += keyword;
                 console.log(url);
-            } else if (searchInput === "") {
+            } else if (searchInput.val() === "") {
                 url += location;
                 console.log(url);
             }
