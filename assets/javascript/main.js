@@ -63,8 +63,8 @@ $(document).ready(function () {
         if (firebaseUser) {
             console.log(firebaseUser);
             logoutButton.removeClass(`hide`);
-
-            
+        } else {
+          
     $(document).on("click", ".favorite-button", function (){
         if($(this).attr("class")!=="favorited-button"){
         $(this).addClass("favorited-button")
@@ -79,7 +79,6 @@ $(document).ready(function () {
 });
 
     });
-
 
         } else{
             console.log(`not loggin in`);
@@ -105,6 +104,7 @@ $(document).ready(function () {
     const sortOrder = "order=" + "order box choice";
 
     //when press enter on input box clickes the button
+
     // $('#search').keypress(function(event){
     //     event.preventDefault();
     //     if(event.keyCode==13){
@@ -218,15 +218,15 @@ $(document).ready(function () {
             // The location of Uluru
             // The map, centered at Uluru
             for (let i = 0; i < restaurantList.length; i++) {
-            var latNumber = parseFloat(restaurantList[i].latitude)
-            var logNumber = parseFloat(restaurantList[i].longitude)
-            var uluru = { lat: latNumber, lng: logNumber };
-            
-            var map = new google.maps.Map(
-             document.getElementById('map' + i) , { zoom: 14, center: uluru });
-            
-            }  
-            
+                var latNumber = parseFloat(restaurantList[i].latitude)
+                var logNumber = parseFloat(restaurantList[i].longitude)
+                var uluru = { lat: latNumber, lng: logNumber };
+
+                var map = new google.maps.Map(
+                    document.getElementById('map' + i), { zoom: 15, center: uluru });
+
+            }
+
             // The marker, positioned at Uluru
             var marker = new google.maps.Marker({ position: uluru, map: map });
         },
@@ -243,15 +243,19 @@ $(document).ready(function () {
                     <div class="modal-header">
                         <h5 class="modal-title">${restaurantList[i].name}</h5>
                     </div>
-                    <i class="far fa-star favorite-button"></i>
-                    <div class="modal-body">
+
+                    <div class="detail-modal-body modal-body">
+                        <div>
+
                         <p><b>Address: </b>${restaurantList[i].address}</p>
                         <p><b>City: </b>${restaurantList[i].city}</p>
                         <p><b>Average Price For Two: </b>$${restaurantList[id].price}</p>
                         <p><b>Menu: </b><a href='${restaurantList[i].menu}'>Click Here</a></p>
-                        <div  class="map" id='map${i}'></div>
                         <button class="btn btn-outline-dark" data-dismiss="modal">Dismiss</button>
+                        </div>
+                        <div class="map" id='map${i}' ></div>
                     </div>
+                   
                 </div>
             </div>
             `);
@@ -275,15 +279,10 @@ $(document).ready(function () {
 
 
 
-
-
-
-
-
     $(document).on("click", ".card-detail", function (event) {
         console.log(event.target.dataset.val);
         modalID = event.target.dataset.val;
-     
+
         munchies.makeModal(modalID);
         $(`#detail-modal-${modalID}`).modal(`show`);
         munchies.initMap();
