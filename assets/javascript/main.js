@@ -1,5 +1,8 @@
 //define global variables
 //
+$(document).ready(function(){
+    $('select').formSelect();
+  });
 
 const database = firebase.database(); // assign firebase database service
 const auth = firebase.auth(); // assign firebase authentication service
@@ -21,6 +24,7 @@ const connectedRef = database.ref(`.info/connected`); //firebase connection list
 
 const searchInput = $(`#search-input`);
 const submitSearchBtn = $(`#submit-search-button`);
+const searchForm = $(`#search-form`);
 const cardWrapperDiv = $(`#card-wrapper`);
 const emailInput = $(`#user-email-input`);
 const passwordInput = $(`#user-password-input`);
@@ -33,30 +37,30 @@ let searchRadiusInput;
 $(document).ready(function () {
     $(`#landing-modal`).modal('show');
 
-    loginButton.click(function(){ //attempt login on button click
+    loginButton.click(function () { //attempt login on button click
         email = emailInput.val()
         password = passwordInput.val()
-        console.log([email,password]);
+        console.log([email, password]);
         //call out to authentication service, assign it's promise to varaible to catch any errors
-        const promise = auth.signInWithEmailAndPassword(email,password);
-        promise.catch(error=>{console.log(error.message)});
+        const promise = auth.signInWithEmailAndPassword(email, password);
+        promise.catch(error => { console.log(error.message) });
     });
 
-    signUpButton.click(function(){
+    signUpButton.click(function () {
         email = emailInput.val()
         password = passwordInput.val()
-        console.log([email,password]);
+        console.log([email, password]);
         //call out to authentication service, assign it's promise to varaible to catch any errors
-        const promise = auth.createUserWithEmailAndPassword(email,password);
-        promise.catch(error=>{console.log(error.message)});
+        const promise = auth.createUserWithEmailAndPassword(email, password);
+        promise.catch(error => { console.log(error.message) });
     });
 
-    logoutButton.click(function(){
+    logoutButton.click(function () {
         auth.signOut();
-    })
+    });
 
-    auth.onAuthStateChanged(function(firebaseUser) {
-        if(firebaseUser){
+    auth.onAuthStateChanged(function (firebaseUser) {
+        if (firebaseUser) {
             console.log(firebaseUser);
             logoutButton.removeClass(`hide`);
 
@@ -83,7 +87,7 @@ $(document).ready(function () {
         }
     })
 
-    connectedRef.on("value",function(snapshot){
+    connectedRef.on("value", function (snapshot) {
         console.log(snapshot);
     })
 
@@ -92,21 +96,22 @@ $(document).ready(function () {
     let restaurantList = [];
     let testURL;
     let modalID;
+    let location;
     const baseURL = `https://developers.zomato.com/api/v2.1/search?`;
     const keyword = `q=${searchInput.val()}&`;
     const radius = `radius=${searchRadiusInput}&`;
-    const location = `lat=${lat}&lon=${lon}`;
+    // const location = `lat=${lat}&lon=${lon}`;
     const sort = `sort=" + "sort box choice" + "&`;
     const sortOrder = "order=" + "order box choice";
-    
+
     //when press enter on input box clickes the button
-    $('#search').keypress(function(event){
-        event.preventDefault();
-        if(event.keyCode==13){
-            $('#submit-search-button').click();
-        }
-        
-      });
+    // $('#search').keypress(function(event){
+    //     event.preventDefault();
+    //     if(event.keyCode==13){
+    //         $('#submit-search-button').click();
+    //     }
+
+    //   });
 
     let munchies = {
         getLocation: function () {
@@ -115,14 +120,21 @@ $(document).ready(function () {
 
                 lat = response.coords.latitude;
                 lon = response.coords.longitude;
+                location = `lat=${lat}&lon=${lon}`
 
                 console.log(`lat:${lat}, lon:${lon}`);
 
                 //let user submit search with location now defined
-                submitSearchBtn.click(function (event) {
-                    event.preventDefault();
-                    munchies.getData();
-                })
+                // submitSearchBtn.click(function (event) {
+                //     event.preventDefault();
+                //     munchies.getData();
+                // });
+                // searchForm.on("submit",function(event){
+                //     event.preventDefault();
+                //     munchies.getData();
+                //     $('input').val("");
+                // });
+
             })
         },
 
@@ -146,9 +158,18 @@ $(document).ready(function () {
         },
         //take user geolocation and retreive nearby restaurants
         getData: function () {
-            testURL = `https://developers.zomato.com/api/v2.1/search?lat=${lat}&lon=${lon}`;
+            // testURL = `https://developers.zomato.com/api/v2.1/search?lat=${lat}&lon=${lon}`;
+            let url = baseURL;
+            console.log(`search input: ${searchInput.val()}`)
+            if (searchInput.val() !== "") {
+                url += keyword;
+                console.log(url);
+            } else if (searchInput.val() === "") {
+                url += location;
+                console.log(url);
+            }
             $.ajax({
-                url: testURL,
+                url: url,
                 method: "GET",
                 headers: {
                     "Accept": "application/json",
@@ -169,7 +190,7 @@ $(document).ready(function () {
                         longitude: response.restaurants[i].restaurant.location.longitude,
                         address: response.restaurants[i].restaurant.location.address,
                         city: response.restaurants[i].restaurant.location.city,
-                        locale: response.restaurants[i].restaurant.location.locality_verbose,
+                        locale: response.restaurants[i].restaurant.location.locality,
                         menu: response.restaurants[i].restaurant.menu_url
                     }
                     restaurantList.push(newRestaurant);
@@ -179,26 +200,33 @@ $(document).ready(function () {
             });
         },
 
-        getSpoonacular: function(){
+        getSpoonacular: function () {
             let testSpoonURL = `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?&query=burger`;
             $.ajax({
-                url:testSpoonURL,
-                method:"GET",
-                headers:{
-                    "Accept":"application/json",
+                url: testSpoonURL,
+                method: "GET",
+                headers: {
+                    "Accept": "application/json",
                     "X-Mashape-Key": "OM0SKTzddtmshPA3nc61vNOIEfaVp1VLQLijsn5aYbYl0C1MFg"
                 }
-            }).then(function(response){
+            }).then(function (response) {
                 console.log(response);
             })
         },
 
         initMap: function () {
             // The location of Uluru
-            var uluru = { lat: 43.080752, lng: -70.80219389999999 };
             // The map, centered at Uluru
+            for (let i = 0; i < restaurantList.length; i++) {
+            var latNumber = parseFloat(restaurantList[i].latitude)
+            var logNumber = parseFloat(restaurantList[i].longitude)
+            var uluru = { lat: latNumber, lng: logNumber };
+            
             var map = new google.maps.Map(
-                document.getElementById('map'), { zoom: 4, center: uluru });
+             document.getElementById('map' + i) , { zoom: 14, center: uluru });
+            
+            }  
+            
             // The marker, positioned at Uluru
             var marker = new google.maps.Marker({ position: uluru, map: map });
         },
@@ -206,8 +234,10 @@ $(document).ready(function () {
         makeModal: function (id) {
             console.log(`making modal`);
             for (let i = 0; i < restaurantList.length; i++) {
-            let newModal = $(`<div id="detail-modal-${id}" class="modal" tabindex="-1" role="dialog">`);
+
+            let newModal = $(`<div id="detail-modal-${i}" class="modal" tabindex="-1" role="dialog">`);
             newModal.html(`
+
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -217,27 +247,33 @@ $(document).ready(function () {
                     <div class="modal-body">
                         <p><b>Address: </b>${restaurantList[i].address}</p>
                         <p><b>City: </b>${restaurantList[i].city}</p>
-                        <p><b>Average Price For Two: </b>$${restaurantList[i].price}</p>
+                        <p><b>Average Price For Two: </b>$${restaurantList[id].price}</p>
                         <p><b>Menu: </b><a href='${restaurantList[i].menu}'>Click Here</a></p>
+                        <div  class="map" id='map${i}'></div>
                         <button class="btn btn-outline-dark" data-dismiss="modal">Dismiss</button>
                     </div>
                 </div>
             </div>
             `);
 
-            $(`body`).append(newModal);
-    
-    
+                $(`body`).append(newModal);
             }
-            
-        },
-
-       
+            munchies.initMap();
+        }
     }
     munchies.getSpoonacular();
     munchies.getLocation();
     console.log(lat, lon);
+
+
     munchies.initMap();
+    searchForm.on("submit", function (event) {
+        event.preventDefault();
+        munchies.getData();
+        $('input').val("");
+    });
+
+
 
 
 
@@ -247,9 +283,14 @@ $(document).ready(function () {
     $(document).on("click", ".card-detail", function (event) {
         console.log(event.target.dataset.val);
         modalID = event.target.dataset.val;
+     
         munchies.makeModal(modalID);
         $(`#detail-modal-${modalID}`).modal(`show`);
+        munchies.initMap();
     });
-
+    console.log($("#sortBox").val())
 });
+
+
+
 
