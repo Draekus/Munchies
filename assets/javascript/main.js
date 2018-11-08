@@ -69,9 +69,9 @@ $(document).ready(function () {
 
 
             $(document).on("click", ".favorite-button", function () {
-                let index = this.attr(dataset.index);
+                let index = this.dataset.index;
                 console.log(index);
-                // munchies.addFavorite()
+                munchies.addFavorite(index)
                 if ($(this).attr("class") !== "favorited-button") {
                     $(this).addClass("favorited-button")
 
@@ -317,6 +317,7 @@ $(document).ready(function () {
             console.log(`getting restaurant at index ${index}`);
             let newFav = restaurantList[index];
             console.log(newFav);
+            database.ref(`/favorites/`).push(newFav);
         }
     }
     munchies.getSpoonacular();
