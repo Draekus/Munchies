@@ -124,9 +124,10 @@ $(document).ready(function () {
     let radiusValue; //where search radius string is stored
     let sortValue; //where sort by string is stored
     let orderValue; //where order by string is stored
+    let testRadius = `radius=${radiusSelect}`
     const baseURL = `https://developers.zomato.com/api/v2.1/search?`; //the base search string for zomato api
 
-
+    console.log(`radius selection is ${testRadius}`)
     //Listen for changes to form inputs, assign values to variables
 
     searchInput.change(function () {
@@ -246,7 +247,7 @@ $(document).ready(function () {
             }).then(function (response) {
                 console.log(response);
                 console.log(response.restaurants.length);
-
+                restaurantList = [];
                 //loop through response, set data to new restaurant variable to push into makeCard function
                 for (let i = 0; i < response.restaurants.length; i++) {
                     let newRestaurant = {
@@ -266,6 +267,7 @@ $(document).ready(function () {
                     restaurantList.push(newRestaurant);
                 }
                 console.log(restaurantList);
+                
                 munchies.makeCard(); //make cards with restaurant details
             });
         },
