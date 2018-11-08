@@ -8,9 +8,7 @@ const database = firebase.database(); // assign firebase database service
 const auth = firebase.auth(); // assign firebase authentication service
 let email; //where email input will be stored
 let password; //where password input will be stored
-//from rapid-api
-//var RapidAPI = new require('rapidapi-connect');
-//var rapid = new RapidAPI('munchie_5be10c36e4b02e44153feed4', '/connect/auth/munchie_5be10c36e4b02e44153feed4');
+
 
 //spoonacular apikey?
 // OM0SKTzddtmshPA3nc61vNOIEfaVp1VLQLijsn5aYbYl0C1MFg
@@ -36,9 +34,9 @@ const signUpButton = $(`#user-create-button`);
 const logoutButton = $(`#user-logout-button`);
 
 
-//
+//wait for document to load for functionality
 $(document).ready(function () {
-    $(`#landing-modal`).modal('show');
+    $(`#landing-modal`).modal('show'); //show landing modal
 
     loginButton.click(function () { //attempt login on button click
         email = emailInput.val()
@@ -49,6 +47,7 @@ $(document).ready(function () {
         promise.catch(error => { console.log(error.message) });
     });
 
+    //add account to firebase
     signUpButton.click(function () {
         email = emailInput.val()
         password = passwordInput.val()
@@ -58,12 +57,14 @@ $(document).ready(function () {
         promise.catch(error => { console.log(error.message) });
     });
 
+    //logout the current user
     logoutButton.click(function () {
         auth.signOut();
     });
 
+    //firebase listener on authentication state change- when a user logs in or out
     auth.onAuthStateChanged(function (firebaseUser) {
-        if (firebaseUser) {
+        if (firebaseUser) { //if a user is logged on
             console.log(firebaseUser);
             logoutButton.removeClass(`hide`);
 
@@ -91,23 +92,24 @@ $(document).ready(function () {
             console.log(`not loggin in`);
             logoutButton.addClass(`hide`);
         }
-    })
-
+    });
+    
+    //listens for new connections being made to server
     connectedRef.on("value", function (snapshot) {
         console.log(snapshot);
     })
 
-    let lat;
-    let lon;
-    let restaurantList = [];
-    let testURL;
-    let modalID;
-    let location;
-    let keyword;
-    let radiusValue;
-    let sortValue;
-    let orderValue;
-    const baseURL = `https://developers.zomato.com/api/v2.1/search?`;
+    //global variable definitions
+    let lat; //browser latitude
+    let lon; //browser longitude
+    let restaurantList = []; //enpty array to push results into
+    let modalID; //unique id for the different detail modals
+    let location; //where location search string is stored
+    let keyword; //where search query string is stored
+    let radiusValue; //where search radius string is stored
+    let sortValue; //where sort by string is stored
+    let orderValue; //where order by string is stored
+    const baseURL = `https://developers.zomato.com/api/v2.1/search?`; //the base search string for zomato api
 
 
     //Listen for changes to form inputs, assign values to variables
@@ -129,7 +131,9 @@ $(document).ready(function () {
     });
 
 
+    //main application functionality
     let munchies = {
+        //get current user location
         getLocation: function () {
             console.log(`getting location...`);
             navigator.geolocation.getCurrentPosition(function (response) {
@@ -144,6 +148,7 @@ $(document).ready(function () {
             })
         },
 
+        //make cards to display response data in main section
         makeCard: function () {
             cardWrapperDiv.html(``);
             for (let i = 0; i < restaurantList.length; i++) {
@@ -162,10 +167,11 @@ $(document).ready(function () {
             }
 
         },
-        //take user geolocation and retreive nearby restaurants
+
+        //call to zomato api for results
         getData: function () {
             // testURL = `https://developers.zomato.com/api/v2.1/search?lat=${lat}&lon=${lon}`;
-            //let url = baseURL;
+
             let url;
             console.log(keyword);
             console.log(radiusValue);
@@ -175,16 +181,16 @@ $(document).ready(function () {
             if (keyword) { // check if search input has a value
                 console.log(`pushing keyword to url`)
                 url = `${baseURL}${keyword}`;
-                if (radiusValue) {
+                if (radiusValue) { //check for search radius value
                     url += radiusValue;
                 }
-                if (sortValue) {
+                if (sortValue) { //check for sort by value
                     url += sortValue;
                 }
-                if (orderValue) {
+                if (orderValue) { //check order by value
                     url += orderValue;
                 }
-            } else { //no value, default to location search
+            } else { //no values, default to location search
                 console.log(`default url`);
                 url = `${baseURL}${location}`;
                 if (radiusValue) {
@@ -225,6 +231,8 @@ $(document).ready(function () {
             }).then(function (response) {
                 console.log(response);
                 console.log(response.restaurants.length);
+
+                //loop through response, set data to new restaurant variable to push into makeCard function
                 for (let i = 0; i < response.restaurants.length; i++) {
                     let newRestaurant = {
                         name: response.restaurants[i].restaurant.name,
@@ -243,10 +251,11 @@ $(document).ready(function () {
                     restaurantList.push(newRestaurant);
                 }
                 console.log(restaurantList);
-                munchies.makeCard();
+                munchies.makeCard(); //make cards with restaurant details
             });
         },
 
+        //call to spoonacular api
         getSpoonacular: function () {
             let testSpoonURL = `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search?&query=burger`;
             $.ajax({
@@ -261,6 +270,7 @@ $(document).ready(function () {
             })
         },
 
+        //call to googleMaps api to get location of restaurants
         initMap: function () {
             // The location of Uluru
             // The map, centered at Uluru
@@ -278,11 +288,15 @@ $(document).ready(function () {
             var marker = new google.maps.Marker({ position: uluru, map: map });
         },
 
+        //make a modal to display more restaurant details
         makeModal: function (id) {
             console.log(`making modal`);
             for (let i = 0; i < restaurantList.length; i++) {
 
+                //create a new div to push details into
                 let newModal = $(`<div id="detail-modal-${i}" class="modal" tabindex="-1" role="dialog">`);
+                
+                //set new div html
                 newModal.html(`
 
             <div class="modal-dialog" role="document">
@@ -306,12 +320,13 @@ $(document).ready(function () {
                 </div>
             </div>
             `);
-
+                //append the modal to html
                 $(`body`).append(newModal);
             }
             munchies.initMap();
         },
 
+        //add a favorite from restaurantList based on the passed index number
         addFavorite: function (index) {
             console.log(`adding favorite`);
             console.log(`getting restaurant at index ${index}`);
@@ -320,12 +335,16 @@ $(document).ready(function () {
             database.ref(`/favorites/`).push(newFav);
         }
     }
+
+    //on page load, call to spoonacular, and get current location
     munchies.getSpoonacular();
     munchies.getLocation();
     console.log(lat, lon);
 
 
     munchies.initMap();
+
+    //prevent page reload on form search submit, call to zomato API, and reset the search field
     searchForm.on("submit", function (event) {
         event.preventDefault();
         munchies.getData();
@@ -338,7 +357,7 @@ $(document).ready(function () {
 
 
 
-
+    //on click, display the details modal for given restaurant
     $(document).on("click", ".card-detail", function (event) {
         console.log(event.target.dataset.val);
         modalID = event.target.dataset.val;
