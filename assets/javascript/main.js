@@ -35,6 +35,7 @@ const loginButton = $(`#user-login-button`);
 const signUpButton = $(`#user-create-button`);
 const logoutButton = $(`#user-logout-button`);
 const userNameDisplay = $(`#user-name-display`);
+const favoritesDisplay = $(`#favorites-display`);
 
 
 //wait for document to load for functionality
@@ -355,9 +356,19 @@ $(document).ready(function () {
 
                 //loop through all of the saved favorites
                 for(let i = 0; i < Object.entries(snapshot.val().favorite).length;i++){
-                    console.log(Object.entries(snapshot.val().favorite)[i][1]);
+                    let fav = Object.entries(snapshot.val().favorite)[i][1]; //store current iterations favorite into a variable
+                    console.log(fav);
+                    let newFavCard = $(`<div class="card" id="fav${i}">`); //create a blank card to push data into
+                    
+                    //fill in card details
+                    newFavCard.html(`
+                    <p>${fav.name}</p>
+                    `);
+
+                    favoritesDisplay.append(newFavCard); //append the newly created favorites card
+                    // console.log(Object.entries(snapshot.val().favorite)[i][1]);
                 }
-            })
+            });
         }
     }
 
