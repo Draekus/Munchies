@@ -64,6 +64,7 @@ $(document).ready(function () {
     //logout the current user
     logoutButton.click(function () {
         auth.signOut();
+        favoritesDisplay.html(``);
     });
 
     //firebase listener on authentication state change- when a user logs in or out
