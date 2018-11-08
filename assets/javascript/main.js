@@ -8,6 +8,7 @@ const database = firebase.database(); // assign firebase database service
 const auth = firebase.auth(); // assign firebase authentication service
 let email; //where email input will be stored
 let password; //where password input will be stored
+let currentUserId; //when a user logs in, their firebase uid will be stored here
 
 
 //spoonacular apikey?
@@ -16,6 +17,7 @@ let password; //where password input will be stored
 //Database References
 //
 const connectedRef = database.ref(`.info/connected`); //firebase connection listener
+const usersRef = database.ref(`/users/`);
 
 //define jQuery Selectors
 //
@@ -32,6 +34,7 @@ const passwordInput = $(`#user-password-input`);
 const loginButton = $(`#user-login-button`);
 const signUpButton = $(`#user-create-button`);
 const logoutButton = $(`#user-logout-button`);
+const userNameDisplay = $(`#user-name-display`);
 
 
 //wait for document to load for functionality
@@ -66,13 +69,19 @@ $(document).ready(function () {
     auth.onAuthStateChanged(function (firebaseUser) {
         if (firebaseUser) { //if a user is logged on
             console.log(firebaseUser);
-            logoutButton.removeClass(`hide`);
+            console.log(`user id; ${firebaseUser.uid}`);
+            currentUserId = firebaseUser.uid; //get loggin in users's uid and assign it into a variable
+
+            usersRef.push(currentUserId); //push the userId into the users's ref to make a new child
+            logoutButton.removeClass(`hide`); //make the logout button visible when logged in
+            userNameDisplay.text(`Hi ${firebaseUser.email}`)
 
 
+            //enable add favorite button functionality only when a user is logged in
             $(document).on("click", ".favorite-button", function () {
-                let index = this.dataset.index;
+                let index = this.dataset.index; //grab the index to store from the favorites button
                 console.log(index);
-                munchies.addFavorite(index)
+                munchies.addFavorite(index) //run addFavorite with the stored id
                 if ($(this).attr("class") !== "favorited-button") {
                     $(this).addClass("favorited-button")
 
@@ -91,6 +100,7 @@ $(document).ready(function () {
         } else {
             console.log(`not loggin in`);
             logoutButton.addClass(`hide`);
+            userNameDisplay.text(``);
         }
     });
     
@@ -332,7 +342,7 @@ $(document).ready(function () {
             console.log(`getting restaurant at index ${index}`);
             let newFav = restaurantList[index];
             console.log(newFav);
-            database.ref(`/favorites/`).push(newFav);
+            database.ref(`/users/${currentUserId}/favorite`).push(newFav);
         }
     }
 

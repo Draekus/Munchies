@@ -94,6 +94,9 @@ aside {
     text-align: center;
     font-family: 'McLaren', cursive;
     grid-area: aside;
+    display: grid;
+    grid-template-columns: 1fr;
+    align-content: start;
 }
 
 .hide{
