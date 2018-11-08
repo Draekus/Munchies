@@ -74,7 +74,8 @@ $(document).ready(function () {
 
             usersRef.push(currentUserId); //push the userId into the users's ref to make a new child
             logoutButton.removeClass(`hide`); //make the logout button visible when logged in
-            userNameDisplay.text(`Hi ${firebaseUser.email}`)
+            userNameDisplay.text(`Hi ${firebaseUser.email}`);
+            munchies.displayFavorites(currentUserId); //pass the current userId to displayFavorites 
 
 
             //enable add favorite button functionality only when a user is logged in
@@ -343,6 +344,20 @@ $(document).ready(function () {
             let newFav = restaurantList[index];
             console.log(newFav);
             database.ref(`/users/${currentUserId}/favorite`).push(newFav);
+        },
+
+        displayFavorites: function(userId){
+            console.log(`*In displayFavorites*`);
+            database.ref(`/users/${userId}`).once('value').then(function(snapshot){
+                console.log(snapshot.val().favorite);
+                //console.log(Object.entries(snapshot.val().favorite)); //Object.entries returns an array of all the object's key/value pairs
+                //console.log(Object.entries(snapshot.val().favorite)[0][1]); //displays the first favorites value
+
+                //loop through all of the saved favorites
+                for(let i = 0; i < Object.entries(snapshot.val().favorite).length;i++){
+                    console.log(Object.entries(snapshot.val().favorite)[i][1]);
+                }
+            })
         }
     }
 
