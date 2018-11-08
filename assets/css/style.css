@@ -97,6 +97,10 @@ aside {
     display: grid;
     grid-template-columns: 1fr;
     align-content: start;
+
+    background-size: cover;
+    height: 100%;
+    overflow-x: hidden;
 }
 
 .hide{
@@ -113,15 +117,14 @@ footer{
     padding-top: 13px;
     grid-area: footer;
 }
-
 .shadow{
     box-shadow: -10px 10px 5px rgba(160, 160, 160,.9);
     border-radius: 5px;
 }
-
 .map {
-     height: 200px;  
-     width: 200px;  
+     height: 250px;  
+     width: 250px;
+     margin: 10px;  
 }
 #card-wrapper {
     display: grid;
@@ -146,8 +149,9 @@ footer{
 }
 .modal{
 opacity: 0.95;
+/* max-width: 40%;
+max-height: 60%; */
 }
-
 .detail-modal-body, .detail-modal-header{
     display:flex;
     justify-content: center;
@@ -200,6 +204,9 @@ opacity: 0.95;
     background-color: white;
     float: left;
 }
+.dropdown-content select-dropdown{
+    opacity: .5;
+}
 
 @media screen and (max-width:995px){
     body{
@@ -229,4 +236,5 @@ opacity: 0.95;
         grid-row: span 2;
     }
 }
+
 
