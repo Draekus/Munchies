@@ -80,19 +80,22 @@ $(document).ready(function () {
 
             //enable add favorite button functionality only when a user is logged in
             $(document).on("click", ".favorite-button", function () {
+                console.log(this)
                 let index = this.dataset.index; //grab the index to store from the favorites button
                 console.log(index);
                 munchies.addFavorite(index) //run addFavorite with the stored id
                 if ($(this).attr("class") !== "favorited-button") {
-                    $(this).addClass("favorited-button")
-
-                    console.log("clickedfosho")
+                    $(this).addClass("favorited-button").removeClass("favorite-button").attr("value", this.dataset.name);
+                    var favoriteValue= $(".favorited-button").val();
+                    
+                    $("#favorites-holder").append("<li>"+favoriteValue+"</li>");
+                    console.log("clickedfosho");
                 }
                 $(document).on("click", ".favorited-button", function () {
 
-                    $(this).removeClass("favorited-button")
+                    $(this).removeClass("favorited-button").addClass("favorite-button");
 
-                    console.log("clickedforeal")
+                    console.log("clickedforeal");
                 });
 
             });
