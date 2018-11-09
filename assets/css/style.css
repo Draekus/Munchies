@@ -145,6 +145,11 @@ footer{
     padding: 20px;
     border-radius: 10%
 }
+
+.card:hover{
+    background-color: rgba(255,255,255,.9)
+}
+
 .card-body{
     display: grid;
     grid-template-columns: 1fr 1fr;
