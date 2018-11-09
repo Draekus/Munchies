@@ -77,7 +77,7 @@ color: white;
 
 #search-form{
     display: grid;
-    grid-template-columns: repeat(3,minmax(200px,1fr));
+    grid-template-columns: repeat(3,minmax(85px,1fr));
     justify-content: center;
     margin: auto;
 }
