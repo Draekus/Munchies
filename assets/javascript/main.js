@@ -1,8 +1,13 @@
-//define global variables
-//
+
+// Initilization of Materialize Lists
 $(document).ready(function () {
     $('select').formSelect();
 });
+
+
+//define global variables
+//
+
 
 const database = firebase.database(); // assign firebase database service
 const auth = firebase.auth(); // assign firebase authentication service
