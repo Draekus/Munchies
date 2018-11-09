@@ -279,7 +279,13 @@ max-height: 60%; */
      font-size: 12px;
      }
   .btn, .btn-large, .btn-small, .btn-flat {
-     padding: 0 ;
+     padding: 6px;
+     }
+  .detail-modal-body, .detail-modal-header {
+    display: grid;
+     }
+   .modal .modal-content {
+    padding: 0;
      }
 }
 
