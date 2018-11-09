@@ -23,11 +23,12 @@ header{
     grid-area: header;
     min-height: 15em;
     background: url(../images/main-image.jpg) no-repeat center center fixed;
-    background-size: cover;
+    background-size:cover ;
     height: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 100px 100px; 
+
 }
 
 .logo{
@@ -121,6 +122,9 @@ footer{
     box-shadow: -10px 10px 5px rgba(160, 160, 160,.9);
     border-radius: 5px;
 }
+.shadow-header{
+    box-shadow: -10px 10px 5px rgba(160, 160, 160,.9);
+}
 .map {
      height: 250px;  
      width: 250px;
@@ -146,6 +150,9 @@ footer{
 }
 .card-detail{
     font-size: 10px;
+}
+.form-control{
+background-color: black
 }
 .modal{
 opacity: 0.95;
