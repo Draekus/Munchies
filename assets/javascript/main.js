@@ -142,6 +142,10 @@ $(document).ready(function () {
         promise.catch(error => { console.log(error) });
         favoritesDisplay.html(``);
         localFavList = [];
+    });
+
+    database.ref(`/users/${currentUserId}/favorite`).on("value",function(childSnapshot){
+        console.log(childSnapshot.val());
     })
 
     //global variable definitions
@@ -248,21 +252,6 @@ $(document).ready(function () {
                     url += orderValue;
                 }
             }
-            //Note: switch was not working- look at again to try and implement?
-            // switch (keyword){
-            //     case undefined:
-            //         console.log(`search input is undefined`)
-            //         url = `${url}${location}`;
-            //         break;
-            //     case (!undefined):
-            //         console.log(`search input is not undefined`)
-            //         url = `${url}${keyword}`;
-            //         break;
-            //     // default:
-            //     // console.log(`defaulting`)
-            //     //     url = `${url}${location}`;
-            //     //     break;
-            // }
 
             console.log(`url: ${url}`)
 
@@ -381,10 +370,14 @@ $(document).ready(function () {
             let newFav = restaurantList[index];
             console.log(newFav);
             database.ref(`/users/${currentUserId}/favorite`).push(newFav);
+            favId = database.ref(`/users/${currentUserId}/favorite`).push();
+            console.log(favId);
+            munchies.displayFavorites(currentUserId);
         },
 
         displayFavorites: function (userId) {
             console.log(`*In displayFavorites*`);
+            favoritesDisplay.html(``); // clear favoritesDisplay before calling to firebase to prevent duplicate data being present in sidebar
             database.ref(`/users/${userId}`).once('value').then(function (snapshot) {
                 console.log(snapshot.val().favorite);
                 //console.log(Object.entries(snapshot.val().favorite)); //Object.entries returns an array of all the object's key/value pairs
@@ -392,16 +385,21 @@ $(document).ready(function () {
 
 
                 localFavList = Object.entries(snapshot.val().favorite);
+                console.log(`displaying localFavList`);
+                console.log(localFavList);
                 //loop through all of the saved favorites
                 for (let i = 0; i < Object.entries(snapshot.val().favorite).length; i++) {
                     let fav = Object.entries(snapshot.val().favorite)[i][1]; //store current iterations favorite into a variable
+                    let firebaseFavId = Object.entries(snapshot.val().favorite)[i][0]; //store current iteration id to be able to remove favorite
                     console.log(fav);
                     let newFavCard = $(`<div class="card" id="fav${i}">`); //create a blank card to push data into
 
                     //fill in card details
+                    // buttons hold data to use in order to make correct detail modal show and able to reference correct database entry on remove favorite click
                     newFavCard.html(`
                     <button type="button" class="btn btn-info btn-sm favorite" data-val='${i}'>+</button>
                     <p class="fav-text">${fav.name}</p>
+                    <button type="button" class="btn btn-danger btn-sm unfavorite" data-val="${firebaseFavId}" data-index="${i}">-</button>
                     `);
 
                     favoritesDisplay.append(newFavCard); //append the newly created favorites card
@@ -441,6 +439,14 @@ $(document).ready(function () {
                 $(`body`).append(newModal);
             }
             munchies.initMap();
+        },
+
+        //on remove favorite, go to  the currently logged in users branch and remove the given entry by id
+        removeFavorite:function(id){
+            console.log(`in remove favs with id:${id}`);
+            database.ref(`/users/${currentUserId}/favorite`).child(id).remove();
+            //re-run display favorites to update list live
+            munchies.displayFavorites(currentUserId);
         }
     }
 
@@ -455,11 +461,13 @@ $(document).ready(function () {
     //prevent page reload on form search submit, call to zomato API, and reset the search field
     searchForm.on("submit", function (event) {
         event.preventDefault();
+        //prevents api call if enter key is hit while initial modal is still shown
         if (loaded) {
             munchies.getData();
         }
-
-        $('input').val("");
+        searchInput.val(``);
+        keyword = "";
+        // $('input').val("");
     });
 
 
@@ -475,11 +483,28 @@ $(document).ready(function () {
         munchies.initMap();
     });
 
+    //on click, make a favorites modal with data in favorites array at the provided index
     $(document).on("click", ".favorite", function (event) {
         let favId = event.target.dataset.val;
         munchies.makeFavModal(favId);
         $(`#fav-modal-${favId}`).modal(`show`);
     });
+
+
+    //on click, take the selected favorites firebase id, and index to remove from both local and firebase favorites list.
+    $(document).on("click",".unfavorite",function(event){
+        console.log(`clicking unfavorite`);
+        console.log(event.target);
+        let firebaseFavId = event.target.dataset.val;
+        console.log(`running remove favorite for id ${firebaseFavId}`);
+        let localFavIndex = event.target.dataset.index;
+        console.log(`remove local favorite at index ${localFavIndex}`);
+        localFavList.splice(localFavIndex,1);
+        munchies.removeFavorite(firebaseFavId);
+        console.log(localFavList);
+        // console.log(localFavList);
+        // munchies.displayFavorites(currentUserId);
+    })
 
 
     console.log($("#sortBox").val())
