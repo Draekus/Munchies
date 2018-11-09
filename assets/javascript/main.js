@@ -56,9 +56,15 @@ $(document).ready(function () {
         email = emailInput.val()
         password = passwordInput.val()
         console.log([email, password]);
-        //call out to authentication service, assign it's promise to varaible to catch any errors
-        const promise = auth.signInWithEmailAndPassword(email, password);
-        promise.catch(error => { console.log(error.message) });
+        //prevent user login to persist on browser refresh
+        auth.setPersistence(firebase.auth.Auth.Persistence.NONE).then(function () {
+            //call out to authentication service, assign it's promise to varaible to catch any errors
+            const promise = auth.signInWithEmailAndPassword(email, password);
+            promise.catch(error => { console.log(error.message) });
+        });
+
+        // const promise = auth.signInWithEmailAndPassword(email, password);
+        // promise.catch(error => { console.log(error.message) });
     });
 
     //add account to firebase
@@ -67,12 +73,16 @@ $(document).ready(function () {
         email = emailInput.val()
         password = passwordInput.val()
         console.log([email, password]);
-        //call out to authentication service, assign it's promise to varaible to catch any errors
-        const promise = auth.createUserWithEmailAndPassword(email, password);
-        promise.catch(error => { console.log(error.message) });
+        //prevent user login to persist on browser refresh
+        auth.setPersistence(firebase.auth.Auth.Persistence.NONE).then(function () {
+            //call out to authentication service, assign it's promise to varaible to catch any errors
+            const promise = auth.createUserWithEmailAndPassword(email, password);
+            promise.catch(error => { console.log(error.message) });
+        });
+
     });
 
-    dismissButton.click(function(){
+    dismissButton.click(function () {
         loaded = true;
     })
 
@@ -86,7 +96,7 @@ $(document).ready(function () {
     //firebase listener on authentication state change- when a user logs in or out
     auth.onAuthStateChanged(function (firebaseUser) {
         if (firebaseUser) { //if a user is logged on
-            console.log(firebaseUser);
+            //console.log(firebaseUser);
             console.log(`user id; ${firebaseUser.uid}`);
             currentUserId = firebaseUser.uid; //get loggin in users's uid and assign it into a variable
 
@@ -120,14 +130,18 @@ $(document).ready(function () {
             console.log(`not loggin in`);
             logoutButton.addClass(`hide`);
             userNameDisplay.text(``);
+            localFavList = [];
+            favoritesDisplay.html(``);
         }
     });
 
     //listens for new connections being made to server
     connectedRef.on("value", function (snapshot) {
-        console.log(snapshot);
-        auth.signOut();
+        //console.log(snapshot);
+        let promise = auth.signOut();
+        promise.catch(error => { console.log(error) });
         favoritesDisplay.html(``);
+        localFavList = [];
     })
 
     //global variable definitions
@@ -375,6 +389,7 @@ $(document).ready(function () {
                 console.log(snapshot.val().favorite);
                 //console.log(Object.entries(snapshot.val().favorite)); //Object.entries returns an array of all the object's key/value pairs
                 //console.log(Object.entries(snapshot.val().favorite)[0][1]); //displays the first favorites value
+
 
                 localFavList = Object.entries(snapshot.val().favorite);
                 //loop through all of the saved favorites
