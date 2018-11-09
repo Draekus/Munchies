@@ -14,6 +14,7 @@ const auth = firebase.auth(); // assign firebase authentication service
 let email; //where email input will be stored
 let password; //where password input will be stored
 let currentUserId; //when a user logs in, their firebase uid will be stored here
+let localFavList;
 
 
 //spoonacular apikey?
@@ -365,6 +366,7 @@ $(document).ready(function () {
                 //console.log(Object.entries(snapshot.val().favorite)); //Object.entries returns an array of all the object's key/value pairs
                 //console.log(Object.entries(snapshot.val().favorite)[0][1]); //displays the first favorites value
 
+                localFavList = Object.entries(snapshot.val().favorite);
                 //loop through all of the saved favorites
                 for(let i = 0; i < Object.entries(snapshot.val().favorite).length;i++){
                     let fav = Object.entries(snapshot.val().favorite)[i][1]; //store current iterations favorite into a variable
@@ -381,6 +383,38 @@ $(document).ready(function () {
                     // console.log(Object.entries(snapshot.val().favorite)[i][1]);
                 }
             });
+        },
+
+        makeFavModal:function(id){
+            for(let i = 0; i < localFavList.length; i++){
+                console.log(localFavList[i]);
+                let newModal = $(`<div id="fav-modal-${i}" class="modal" tabindex="-1" role="dialog">`);
+                
+                //set new div html
+                newModal.html(`
+
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="detail-modal-header modal-header">
+                        <h5 class="modal-title">${localFavList[i][1].name}</h5>
+                    </div>
+                    
+                    <div class="detail-modal-body">
+                    <div>
+                        <p><b>Address: </b>${localFavList[i][1].address}</p>
+                        <p><b>City: </b>${localFavList[i][1].city}</p>
+                        <p><b>Average Price For Two: </b>$${localFavList[id][1].price}</p>
+                        <p><b>Menu: </b><a href='${localFavList[i][1].menu}'>Click Here</a></p>
+                        <button class="btn btn-outline-dark" data-dismiss="modal">Dismiss</button>
+                    </div>
+                    <div  class="map" id='map${i}'></div>
+                        
+                    </div>
+                </div>
+            </div>
+            `);
+            $(`body`).append(newModal);
+            }
         }
     }
 
@@ -398,14 +432,6 @@ $(document).ready(function () {
         munchies.getData();
         $('input').val("");
     });
-    // submitSearchBtn.click(function (event) {
-    //     event.preventDefault();
-    //     munchies.getData();
-    //     $('input').val("");
-    // });
-
-
-
 
 
 
@@ -419,6 +445,13 @@ $(document).ready(function () {
         $(`#detail-modal-${modalID}`).modal(`show`);
         munchies.initMap();
     });
+
+    $(document).on("click",".favorite",function(event){
+        let favId = event.target.dataset.val;
+        munchies.makeFavModal(favId);
+        $(`#fav-modal-${favId}`).modal(`show`);
+    });
+
     console.log($("#sortBox").val())
 });
 
