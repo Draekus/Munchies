@@ -45,6 +45,7 @@ const signUpButton = $(`#user-create-button`);
 const logoutButton = $(`#user-logout-button`);
 const userNameDisplay = $(`#user-name-display`);
 const favoritesDisplay = $(`#favorites-display`);
+const loginModalButton = $(`#login-modal-button`);
 
 
 //wait for document to load for functionality
@@ -102,6 +103,7 @@ $(document).ready(function () {
 
             usersRef.push(currentUserId); //push the userId into the users's ref to make a new child
             logoutButton.removeClass(`hide`); //make the logout button visible when logged in
+            loginModalButton.addClass(`hide`);
             userNameDisplay.text(`Hi ${firebaseUser.email}`);
             munchies.displayFavorites(currentUserId); //pass the current userId to displayFavorites 
 
@@ -129,6 +131,7 @@ $(document).ready(function () {
         } else {
             console.log(`not loggin in`);
             logoutButton.addClass(`hide`);
+            loginModalButton.removeClass(`hide`);
             userNameDisplay.text(``);
             localFavList = [];
             favoritesDisplay.html(``);
@@ -471,7 +474,10 @@ $(document).ready(function () {
     });
 
 
-
+    loginModalButton.click(function(){
+        loaded = false;
+        $(`#landing-modal`).modal('show');
+    })
 
     //on click, display the details modal for given restaurant
     $(document).on("click", ".card-detail", function (event) {
@@ -504,7 +510,7 @@ $(document).ready(function () {
         console.log(localFavList);
         // console.log(localFavList);
         // munchies.displayFavorites(currentUserId);
-    })
+    });
 
 
     console.log($("#sortBox").val())
