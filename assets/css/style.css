@@ -145,11 +145,6 @@ footer{
     padding: 20px;
     border-radius: 10%
 }
-
-.card:hover{
-    background-color: rgba(255,255,255,.9)
-}
-
 .card-body{
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -272,8 +267,9 @@ max-height: 60%; */
     z-index: 10040;
     overflow: auto;
     overflow-y: auto;
-    max-height: 60%;
+    max-height: 80%;
     margin-left: 10%;
+    max-width: 80%
      }
    .btn, .btn-large, .btn-small{
      max-width: 67px;
