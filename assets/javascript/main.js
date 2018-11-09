@@ -365,7 +365,8 @@ $(document).ready(function () {
                     
                     //fill in card details
                     newFavCard.html(`
-                    <p>${fav.name}</p>
+                    <button type="button" class="btn btn-info btn-sm favorite" data-val='${i}'>+</button>
+                    <p class="fav-text">${fav.name}</p>
                     `);
 
                     favoritesDisplay.append(newFavCard); //append the newly created favorites card
