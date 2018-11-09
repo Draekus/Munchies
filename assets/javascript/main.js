@@ -63,6 +63,7 @@ $(document).ready(function () {
 
     //logout the current user
     logoutButton.click(function () {
+        console.log(`logout clicked`);
         auth.signOut();
         favoritesDisplay.html(``);
     });
@@ -122,10 +123,9 @@ $(document).ready(function () {
     let radiusValue; //where search radius string is stored
     let sortValue; //where sort by string is stored
     let orderValue; //where order by string is stored
-    let testRadius = `radius=${radiusSelect}`
     const baseURL = `https://developers.zomato.com/api/v2.1/search?`; //the base search string for zomato api
 
-    console.log(`radius selection is ${testRadius}`)
+    // console.log(`radius selection is ${testRadius}`)
     //Listen for changes to form inputs, assign values to variables
 
     searchInput.change(function () {
@@ -389,6 +389,11 @@ $(document).ready(function () {
         munchies.getData();
         $('input').val("");
     });
+    // submitSearchBtn.click(function (event) {
+    //     event.preventDefault();
+    //     munchies.getData();
+    //     $('input').val("");
+    // });
 
 
 
