@@ -15,6 +15,7 @@ let email; //where email input will be stored
 let password; //where password input will be stored
 let currentUserId; //when a user logs in, their firebase uid will be stored here
 let localFavList;
+let loaded = false;
 
 
 //spoonacular apikey?
@@ -38,6 +39,7 @@ const searchForm = $(`#search-form`);
 const cardWrapperDiv = $(`#card-wrapper`);
 const emailInput = $(`#user-email-input`);
 const passwordInput = $(`#user-password-input`);
+const dismissButton = $(`#dismiss-login-button`);
 const loginButton = $(`#user-login-button`);
 const signUpButton = $(`#user-create-button`);
 const logoutButton = $(`#user-logout-button`);
@@ -50,6 +52,7 @@ $(document).ready(function () {
     $(`#landing-modal`).modal('show'); //show landing modal
 
     loginButton.click(function () { //attempt login on button click
+        loaded = true;
         email = emailInput.val()
         password = passwordInput.val()
         console.log([email, password]);
@@ -60,6 +63,7 @@ $(document).ready(function () {
 
     //add account to firebase
     signUpButton.click(function () {
+        loaded = true;
         email = emailInput.val()
         password = passwordInput.val()
         console.log([email, password]);
@@ -67,6 +71,10 @@ $(document).ready(function () {
         const promise = auth.createUserWithEmailAndPassword(email, password);
         promise.catch(error => { console.log(error.message) });
     });
+
+    dismissButton.click(function(){
+        loaded = true;
+    })
 
     //logout the current user
     logoutButton.click(function () {
@@ -114,7 +122,7 @@ $(document).ready(function () {
             userNameDisplay.text(``);
         }
     });
-    
+
     //listens for new connections being made to server
     connectedRef.on("value", function (snapshot) {
         console.log(snapshot);
@@ -276,7 +284,7 @@ $(document).ready(function () {
                     restaurantList.push(newRestaurant);
                 }
                 console.log(restaurantList);
-                
+
                 munchies.makeCard(); //make cards with restaurant details
             });
         },
@@ -321,7 +329,7 @@ $(document).ready(function () {
 
                 //create a new div to push details into
                 let newModal = $(`<div id="detail-modal-${i}" class="modal" tabindex="-1" role="dialog">`);
-                
+
                 //set new div html
                 newModal.html(`
 
@@ -361,20 +369,20 @@ $(document).ready(function () {
             database.ref(`/users/${currentUserId}/favorite`).push(newFav);
         },
 
-        displayFavorites: function(userId){
+        displayFavorites: function (userId) {
             console.log(`*In displayFavorites*`);
-            database.ref(`/users/${userId}`).once('value').then(function(snapshot){
+            database.ref(`/users/${userId}`).once('value').then(function (snapshot) {
                 console.log(snapshot.val().favorite);
                 //console.log(Object.entries(snapshot.val().favorite)); //Object.entries returns an array of all the object's key/value pairs
                 //console.log(Object.entries(snapshot.val().favorite)[0][1]); //displays the first favorites value
 
                 localFavList = Object.entries(snapshot.val().favorite);
                 //loop through all of the saved favorites
-                for(let i = 0; i < Object.entries(snapshot.val().favorite).length;i++){
+                for (let i = 0; i < Object.entries(snapshot.val().favorite).length; i++) {
                     let fav = Object.entries(snapshot.val().favorite)[i][1]; //store current iterations favorite into a variable
                     console.log(fav);
                     let newFavCard = $(`<div class="card" id="fav${i}">`); //create a blank card to push data into
-                    
+
                     //fill in card details
                     newFavCard.html(`
                     <button type="button" class="btn btn-info btn-sm favorite" data-val='${i}'>+</button>
@@ -387,11 +395,11 @@ $(document).ready(function () {
             });
         },
 
-        makeFavModal:function(id){
-            for(let i = 0; i < localFavList.length; i++){
+        makeFavModal: function (id) {
+            for (let i = 0; i < localFavList.length; i++) {
                 console.log(localFavList[i]);
                 let newModal = $(`<div id="fav-modal-${i}" class="modal" tabindex="-1" role="dialog">`);
-                
+
                 //set new div html
                 newModal.html(`
 
@@ -415,7 +423,7 @@ $(document).ready(function () {
                 </div>
             </div>
             `);
-            $(`body`).append(newModal);
+                $(`body`).append(newModal);
             }
             munchies.initMap();
         }
@@ -432,7 +440,10 @@ $(document).ready(function () {
     //prevent page reload on form search submit, call to zomato API, and reset the search field
     searchForm.on("submit", function (event) {
         event.preventDefault();
-        munchies.getData();
+        if (loaded) {
+            munchies.getData();
+        }
+
         $('input').val("");
     });
 
@@ -449,11 +460,12 @@ $(document).ready(function () {
         munchies.initMap();
     });
 
-    $(document).on("click",".favorite",function(event){
+    $(document).on("click", ".favorite", function (event) {
         let favId = event.target.dataset.val;
         munchies.makeFavModal(favId);
         $(`#fav-modal-${favId}`).modal(`show`);
     });
+
 
     console.log($("#sortBox").val())
 });
