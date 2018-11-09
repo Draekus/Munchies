@@ -131,6 +131,7 @@
     .s006 form .inner-form .input-field input {
       padding-left: 55px;
       font-size: 16px;
+      padding: 0 30px;
     }
     .s006 form .inner-form .input-field .btn-search svg {
       width: 26px;
