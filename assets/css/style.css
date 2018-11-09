@@ -258,3 +258,21 @@ max-height: 60%; */
     color: white;
 }
 
+ @media screen and (max-width: 767px) {
+.modal {
+    position: absolute;
+    top: 30%;
+    right: 100px;
+    left: 0;
+    z-index: 10040;
+    overflow: auto;
+    overflow-y: auto;
+    max-height: 60%;
+    margin-left: 10%;
+     }
+   .btn, .btn-large, .btn-small{
+     max-width: 67px;
+     font-size: 12px;
+     }
+}
+
