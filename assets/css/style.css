@@ -254,4 +254,7 @@ max-height: 60%; */
     font-size: 13px;
 }
 
+.select-wrapper input.select-dropdown { 
+    color: white;
+}
 
