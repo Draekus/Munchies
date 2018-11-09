@@ -237,4 +237,12 @@ max-height: 60%; */
     }
 }
 
+.favorite {
+    float: left;
+}
+
+.fav-text {
+    font-size: 13px;
+}
+
 
