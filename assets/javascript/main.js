@@ -1,8 +1,13 @@
-//define global variables
-//
+
+// Initilization of Materialize Lists
+// 
 $(document).ready(function () {
     $('select').formSelect();
 });
+
+
+//define global variables
+//
 
 const database = firebase.database(); // assign firebase database service
 const auth = firebase.auth(); // assign firebase authentication service
@@ -16,6 +21,7 @@ let currentUserId; //when a user logs in, their firebase uid will be stored here
 
 //Database References
 //
+
 const connectedRef = database.ref(`.info/connected`); //firebase connection listener
 const usersRef = database.ref(`/users/`);
 
@@ -235,6 +241,7 @@ $(document).ready(function () {
 
             console.log(`url: ${url}`)
 
+            // Zomato API call with dynamic url from dropdown & keywords
             $.ajax({
                 url: url,
                 method: "GET",
@@ -245,6 +252,7 @@ $(document).ready(function () {
             }).then(function (response) {
                 console.log(response);
                 console.log(response.restaurants.length);
+                // Clears the restaurantList to avoid appending old searches upon a new search
                 restaurantList = [];
                 //loop through response, set data to new restaurant variable to push into makeCard function
                 for (let i = 0; i < response.restaurants.length; i++) {
