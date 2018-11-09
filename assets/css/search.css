@@ -35,7 +35,7 @@
     height: 70px;
     max-width:100%;
     position: relative;
-    margin-left: 30px;
+    /* margin-left: 30px; */
   }
   
   .s006 form .inner-form .input-field input {

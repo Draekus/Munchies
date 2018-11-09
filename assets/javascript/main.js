@@ -112,6 +112,8 @@ $(document).ready(function () {
     //listens for new connections being made to server
     connectedRef.on("value", function (snapshot) {
         console.log(snapshot);
+        auth.signOut();
+        favoritesDisplay.html(``);
     })
 
     //global variable definitions
@@ -407,6 +409,7 @@ $(document).ready(function () {
             `);
             $(`body`).append(newModal);
             }
+            munchies.initMap();
         }
     }
 
