@@ -328,7 +328,7 @@ $(document).ready(function () {
                 var uluru = { lat: latNumber, lng: logNumber };
 
                 var map = new google.maps.Map(
-                    document.getElementById('map' + i), { zoom: 14, center: uluru });
+                    document.getElementById('map' + i), { zoom: 15, center: uluru });
 
             }
 
