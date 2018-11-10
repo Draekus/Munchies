@@ -106,6 +106,10 @@ aside {
     overflow-x: hidden;
 }
 
+hr{
+    width: 100%;
+}
+
 .hide{
     display: none;
 }
@@ -286,6 +290,10 @@ max-height: 60%; */
      }
    .modal .modal-content {
     padding: 0;
+     }
+     
+     aside button{
+         justify-self: center;
      }
 }
 
