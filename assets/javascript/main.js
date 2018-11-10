@@ -91,6 +91,7 @@ $(document).ready(function () {
     logoutButton.click(function () {
         console.log(`logout clicked`);
         auth.signOut();
+        loaded = false;
         favoritesDisplay.html(``);
     });
 
