@@ -7,7 +7,7 @@ When the page loads, you are greeting with a welcome modal that gives the user t
 
 To search, type a keyword into the text input. There are additional optional search filters to sort results by Rating, Price, or Distance from your current location. If the text input is left blank, a general search based on your coordinates is performed.
 
-The API results are displayed in a grid of detail cards, each of which have a button to display additional details about the restaurant, and a star button to add the restaurant to the user's favorites. Additionally, inside the retaurant details modal, an embedded google map is placed so the user can more clearly see where the establishment is. All menu links will redirect you to the corresponding restaurant's Zomato page. The directions link will open up google maps in the current window or will open up the google maps app on mobile.
+The API results are displayed in a grid of detail cards, each of which have a button to display additional details about the restaurant, and a star button to add the restaurant to the user's favorites. Additionally, inside the retaurant details modal, an embedded google map is placed so the user can more clearly see where the establishment is. All menu links will redirect you to the corresponding restaurant's Zomato page. The directions link will open up google maps in a new window or will open up the google maps app on mobile.
 
 *Note that not all restaurants have added a menu to zomato.
 
