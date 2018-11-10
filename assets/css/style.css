@@ -65,6 +65,7 @@ color: white;
     right: 100px;
     bottom: 0;
     left: 0;
+    padding: 15px;
     z-index: 10040;
     overflow: auto;
     overflow-y: auto;
@@ -95,7 +96,7 @@ aside {
     font-size: 20px;
     background: beige;
     text-align: center;
-    font-family: 'McLaren', cursive;
+    font-family: Verdana, sans-serif;
     grid-area: aside;
     display: grid;
     grid-template-columns: 1fr;
@@ -115,7 +116,7 @@ footer{
     background: #232323;
     grid-column: 1 / span 2;
     color: bisque;
-    font-family: 'McLaren', cursive;
+    font-family: Verdana, sans-serif;
     text-align: center;
     padding-top: 13px;
     grid-area: footer;

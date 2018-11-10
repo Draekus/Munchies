@@ -404,7 +404,7 @@ $(document).ready(function () {
                     newFavCard.html(`
                     <button type="button" class="btn btn-info btn-sm favorite" data-val='${i}'>+</button>
                     <p class="fav-text">${fav.name}</p>
-                    <button type="button" class="btn btn-danger btn-sm unfavorite" data-val="${firebaseFavId}" data-index="${i}">-</button>
+                    <button type="button" class="btn btn-danger btn-sm unfavorite" data-val="${firebaseFavId}" data-index="${i}">Remove</button>
                     `);
 
                     favoritesDisplay.append(newFavCard); //append the newly created favorites card
