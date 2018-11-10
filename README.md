@@ -15,7 +15,4 @@ This project includes the use of two API's from Zomato and Google. More informat
 
 -Contributors To The Project- 
 
-<b>Michael Blydenburgh</b> 
-<b>Stan Mozolevskiy</b>
-<b>Daniel Crump</b>
-<b>Patrick Gould</b>
+( <b>Michael Blydenburgh</b> && <b>Stan Mozolevskiy</b> && <b>Daniel Crump</b> && <b>Patrick Gould</b> )
