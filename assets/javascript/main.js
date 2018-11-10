@@ -232,7 +232,7 @@ $(document).ready(function () {
 
             if (keyword) { // check if search input has a value
                 console.log(`pushing keyword to url`)
-                url = `${baseURL}${keyword}`;
+                url = `${baseURL}${location}${keyword}`;
                 if (radiusValue) { //check for search radius value
                     url += radiusValue;
                 }
