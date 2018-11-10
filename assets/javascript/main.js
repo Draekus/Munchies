@@ -418,7 +418,7 @@ $(document).ready(function () {
             for (let i = 0; i < localFavList.length; i++) {
                 console.log(localFavList[i]);
                 let newModal = $(`<div id="fav-modal-${i}" class="modal" tabindex="-1" role="dialog">`);
-
+                let directionsFavorite = encodeURIComponent(localFavList[i][1].address)
                 //set new div html
                 newModal.html(`
 
@@ -434,7 +434,7 @@ $(document).ready(function () {
                         <p><b>City: </b>${localFavList[i][1].city}</p>
                         <p><b>Average Price For Two: </b>$${localFavList[id][1].price}</p>
                         <p><b>Menu: </b><a href='${localFavList[i][1].menu}'target="_blank">Click Here</a></p>
-                        <p><b>Directions: </b><a href="https://www.google.com/maps/dir/?api=1&destination=${directions}" target="_blank">Click Here</a></p>
+                        <p><b>Directions: </b><a href="https://www.google.com/maps/dir/?api=1&destination=${directionsFavorite}" target="_blank">Click Here</a></p>
                         <button class="btn btn-outline-dark" data-dismiss="modal">Dismiss</button>
                     </div>
                     <div  class="map" id='map${i}'></div>
