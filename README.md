@@ -13,6 +13,8 @@ The API results are displayed in a grid of detail cards, each of which have a bu
 
 This project includes the use of two API's from Zomato and Google. More information can be found about them at https://developers.zomato.com/api and https://developers.google.com/maps/documentation/ respectively.
 
--Contributors To The Project- 
+<b>-Contributors To The Project-</b> 
 
-( <b>Michael Blydenburgh</b> && <b>Stan Mozolevskiy</b> && <b>Daniel Crump</b> && <b>Patrick Gould</b> )
+( Michael Blydenburgh && Stan Mozolevskiy && Daniel Crump && Patrick Gould )
+
+^X
