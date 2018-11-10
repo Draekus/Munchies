@@ -92,7 +92,7 @@ color: white;
 }
 
 aside {
-    padding: 15px;
+    padding: 10px;
     font-size: 20px;
     background: beige;
     text-align: center;
@@ -124,6 +124,9 @@ footer{
 .shadow{
     box-shadow: -10px 10px 5px rgba(160, 160, 160,.9);
     border-radius: 5px;
+}
+#user-name-display {
+    font-size: 18px;
 }
 .shadow-header{
     box-shadow: -10px 10px 5px rgba(160, 160, 160,.9);
