@@ -1,5 +1,5 @@
 # Munchies Metropolis
-https://pgould94.github.io/Project1/index.html
+https://pgould94.github.io/Munchies_Metropolis/index.html
 
 Welcome to Munchies Metropolis! This app is built on top of the Zomato API. To enable full functionality, location services are required to be enabled. The UI is mobile responsive and built with the CSS Grid system, and scrollbars are made with NiceScrollJS.
 
