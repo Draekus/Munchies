@@ -236,6 +236,7 @@ max-height: 60%; */
     aside{
         /* grid-column: 1/-1; */
         grid-area: aside;
+        
     }
 
     /* header{
@@ -266,6 +267,10 @@ max-height: 60%; */
 }
 
  @media screen and (max-width: 767px) {
+
+    aside button{
+        justify-self: center;
+    }
 .modal {
     position: absolute;
     top: 30%;
@@ -291,5 +296,6 @@ max-height: 60%; */
    .modal .modal-content {
     padding: 0;
      }
+
 }
 
