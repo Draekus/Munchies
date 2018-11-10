@@ -335,7 +335,8 @@ $(document).ready(function () {
 
                 //create a new div to push details into
                 let newModal = $(`<div id="detail-modal-${i}" class="modal" tabindex="-1" role="dialog">`);
-
+                let directions = encodeURIComponent(restaurantList[i].address)
+                console.log(directions)
                 //set new div html
                 newModal.html(`
 
@@ -352,7 +353,7 @@ $(document).ready(function () {
                         <p><b>City: </b>${restaurantList[i].city}</p>
                         <p><b>Average Price For Two: </b>$${restaurantList[id].price}</p>
                         <p><b>Menu: </b><a href='${restaurantList[i].menu}'>Click Here</a></p>
-                        <p><b>Directions: </b><a href="https://www.google.com/maps/dir/?api=1&destination=${restaurantList[i].latitude},${restaurantList[i].longitude}">Click Here</a></p>
+                        <p><b>Directions: </b><a href="https://www.google.com/maps/dir/?api=1&destination=${directions}">Click Here</a></p>
                         <button class="btn btn-outline-dark" data-dismiss="modal">Dismiss</button>
                     </div>
                     <div  class="map" id='map${i}'></div>
