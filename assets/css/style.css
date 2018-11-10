@@ -68,8 +68,8 @@ color: white;
     z-index: 10040;
     overflow: auto;
     overflow-y: auto;
-    max-height: 40%;
-    max-width: 40%;;
+    max-height: 50%;
+    max-width: 50%;;
 }
 ::placeholder{
     color:black;
